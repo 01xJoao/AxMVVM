@@ -1,5 +1,5 @@
 # AxMVVM
-AffixMVVM - Powerful and easy to use MVVM Architecture for Flutter
+Affixal MVVM - Powerful and easy to use MVVM Architecture for Flutter
 
 - ViewModel First navigation;
 - Dependency Injecton with IoC container;
