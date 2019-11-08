@@ -9,4 +9,4 @@ AffixMVVM - Powerful and easy to use MVVM Architecture for Flutter
 - Navigation Service;
 - Value Converter;
 - Data Binding;
-- Base class for views & widgets
+- Base class for views & widgets;
