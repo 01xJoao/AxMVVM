@@ -10,3 +10,5 @@ Affixal MVVM - Powerful and easy to use MVVM Architecture for Flutter
 - Value Converter.
 - Data Binding.
 - Base class for views & widgets.
+
+@ Inspired by Kevin Ford's fmvvm architecture - https://github.com/Bowman74/fmvvm
