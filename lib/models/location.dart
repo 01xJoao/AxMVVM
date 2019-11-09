@@ -1,4 +1,4 @@
-part of axmvvm.utilities;
+part of axmvvm.models;
 
 /// Helper class for translation.
 class Location {

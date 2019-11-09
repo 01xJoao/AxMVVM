@@ -1,12 +1,5 @@
 library axmvvm.utilities;
-
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:axmvvm/bindings/bindings.dart';
-
-part 'location.dart';
 
 class Utilities {
   /// Returns a type object for a generic.
