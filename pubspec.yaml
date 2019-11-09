@@ -1,8 +1,8 @@
 name: axmvvm
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: Affixal MVVM.
+version: 0.1.0
+author: João Palma
+homepage: https://github.com/joaowd/AxMVVM
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
