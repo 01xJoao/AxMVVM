@@ -4,7 +4,6 @@ class LocalizationService implements ILocalizationService {
 
   @override
   void initialize(String root, List<Locale> supportedLocales) {
-    // TODO: implement initialize
   }
 
   @override

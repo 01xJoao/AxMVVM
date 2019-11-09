@@ -12,7 +12,7 @@ class Location {
 
   Map<String, String> _localizedValues;
 
-  Future loadLocalizedValues(String root) async {
+  Future<void> loadLocalizedValues(String root) async {
     final String data = await rootBundle.loadString('$root${locale.languageCode}.json');
     final dynamic jsonString = json.decode(data);
     _localizedValues = <String, String>{};

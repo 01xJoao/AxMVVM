@@ -3,59 +3,50 @@ part of axmvvm.services;
 class NavigationService implements INavigationService {
   @override
   ViewModel createViewModelForBottomNavigationView<T extends ViewModel>({Object parameter}) {
-    // TODO: implement createViewModelForBottomNavigationView
     return null;
   }
 
   @override
   ViewModel createViewModelForInitialView<T extends ViewModel>() {
-    // TODO: implement createViewModelForInitialView
     return null;
   }
 
   @override
   void initialize() {
-    // TODO: implement initialize
   }
 
   @override
-  Future<void> navigate<V extends ViewModel>({Object parameter}) {
-    // TODO: implement navigate
+  Future<void> navigateAndRemoveAllAsync<V extends ViewModel>({Object parameter}) {
     return null;
   }
 
   @override
-  Future<void> navigateAndRemoveAll<V extends ViewModel>({Object parameter}) {
-    // TODO: implement navigateAndRemoveAll
+  Future<void> navigateAndRemoveCurrentAsync<V extends ViewModel>({Object parameter, bool animateToBackFirst}) {
     return null;
   }
 
   @override
-  Future<void> navigateAndRemoveCurrent<V extends ViewModel>({Object parameter, bool animateToBackFirst}) {
-    // TODO: implement navigateAndRemoveCurrent
+  Future<void> navigateAsync<V extends ViewModel>({Object parameter}) {
     return null;
   }
 
   @override
-  Future<void> navigateBack() {
-    // TODO: implement navigateBack
+  Future<void> navigateBackAsync() {
     return null;
   }
 
   @override
-  void navigateBackUntil<V extends ViewModel>() {
-    // TODO: implement navigateBackUntil
-  }
-
-  @override
-  Future<void> navigateBackWithResult<O extends Object>({O parameter}) {
-    // TODO: implement navigateBackWithResult
+  Future<void> navigateBackUntilAsync<V extends ViewModel>() {
     return null;
   }
 
   @override
-  Future<R> navigateForResult<R extends Object, V extends ViewModel>({Object parameter}) {
-    // TODO: implement navigateForResult
+  Future<void> navigateBackWithResultAsync<O extends Object>({O parameter}) {
+    return null;
+  }
+
+  @override
+  Future<O> navigateForResultAsync<O extends Object, V extends ViewModel>({Object parameter}) {
     return null;
   }
   
