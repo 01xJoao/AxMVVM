@@ -1,6 +1,6 @@
 part of axmvvm.services;
 
-class LocalizationService implements ILocalizationService {
+class LocalizationService extends BindableBase implements ILocalizationService {
 
   @override
   void initialize(String root, List<Locale> supportedLocales) {

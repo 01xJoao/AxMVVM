@@ -2,12 +2,8 @@ part of axmvvm;
 
 class Container {
   /// Container of dependency registrations.
-  static List<DependencyRegistration> _dependencyContainer;
+  static final List<DependencyRegistration> _dependencyContainer = <DependencyRegistration>[];
 
-  Container() {
-    _dependencyContainer ??= <DependencyRegistration>[];
-  }
-  
   /// Get the instance of a object previously registered in the container.
   T getInstance<T>() {
     final Type targetType = Utilities.typeOf<T>();
@@ -42,7 +38,7 @@ class Container {
 
   /// Removes all registrations from the dependency injection container.
   void cleanContainer() {
-    _dependencyContainer = <DependencyRegistration>[];
+    _dependencyContainer.clear();
   }
 
   void _checkDependencyRegistration<T>() {

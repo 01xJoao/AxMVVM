@@ -27,13 +27,14 @@ abstract class INavigationService {
   /// Pops the current view / viewmodel off the stack and goes to the previous one.
   ///
   /// The [paramter] is the result to send back to the calling viewmodel.
+  /// 
   /// This should be used in conjunction with navigateAsyncForResult.
   Future<void> navigateBackWithResultAsync<O extends Object>({O parameter});
 
-  /// Will close all views and view models until it finds the viewmodel type   
+  /// Will close all views and viewmodels async until it finds the viewmodel type   
   Future<void> navigateBackUntilAsync<V extends ViewModel>();
 
-  /// Navigates to a new viewmodel and removed the calling viewmodel from the stack.
+  /// Navigates to a new viewmodel and removes the calling viewmodel from the stack.
   ///
   /// The [parameter] is a value that will be passed to the new viewmodel's init method.
   /// 
@@ -57,5 +58,5 @@ abstract class INavigationService {
   /// The [parameter] is a value that will be passed to the new viewmodel's init method.
   /// 
   /// This won't call viewmodel's methods initialize or initializeAsync.
-  ViewModel createViewModelForBottomNavigationView<T extends ViewModel>({Object parameter});
+  ViewModel createViewModelForBottomNavigation<T extends ViewModel>({Object parameter});
 }

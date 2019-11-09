@@ -1,5 +1,6 @@
 library axmvvm.services;
 
+import 'package:axmvvm/axmvvm.dart';
 import 'package:axmvvm/bindings/bindings.dart';
 import 'package:axmvvm/models/models.dart';
 import 'package:axmvvm/utilities/utilities.dart';

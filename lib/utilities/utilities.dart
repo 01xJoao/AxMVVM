@@ -13,10 +13,17 @@ class Utilities {
   static Type typeOf<T>() => T;
 
   /// Returns a string view name based on a viewmodel type.
-  String getViewFromViewModelType<T extends ViewModel>() {
+  static String getViewFromViewModelType<T extends ViewModel>() {
     final String typeName = Utilities.typeOf<T>().toString();
     return typeName.replaceAll('ViewModel', 'View');
   }
+}
+
+/// Contains static variables for items used by fmvvm.
+class Constants {
+  static String buildContext = "BuildContext";
+  static String locate = "Locale";
+  static String localizationReady = "LocalizationReady";
 }
 
 enum Lifestyle { transientRegistration, singletonRegistration }
