@@ -2,7 +2,7 @@
 Affixal MVVM - Powerful and easy to use MVVM Architecture for Flutter
 
 - ViewModel First navigation.
-- Dependency Injecton with IoC container.
+- Dependency Injecton.
 - Command Design Pattern.
 - Messaging Design Pattern.
 - Localization Service.
