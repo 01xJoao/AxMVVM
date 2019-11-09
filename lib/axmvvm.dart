@@ -1,7 +1,6 @@
 library axmvvm;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+import 'package:axmvvm/utilities/utilities.dart';
+
+part 'component_resolver.dart';
+part 'dependency_registration.dart';
