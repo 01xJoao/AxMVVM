@@ -1,10 +1,10 @@
 part of axmvvm;
 
-class ComponentResolver {
+class Container {
   /// Container of dependency registrations.
   static List<DependencyRegistration> _dependencyContainer;
 
-  ComponentResolver() {
+  Container() {
     _dependencyContainer ??= <DependencyRegistration>[];
   }
   

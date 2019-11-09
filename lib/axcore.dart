@@ -1,9 +1,17 @@
 part of axmvvm;
 
+/// Main class for AxMVVM framework
 class AxCore {
-  static ComponentResolver _componentResolver;
+  static final Container _container = Container();
   
-  static INavigationService _navigationService;
-  static IMessageService _messageService;
-  static ILocalizationService _l10nService;
+  AxCore() {
+    _container.registerSingleton<INavigationService>(NavigationService());
+    _container.registerSingleton<IMessageService>(MessageService());
+    _container.registerSingleton<ILocalizationService>(LocalizationService());
+
+    _container.getInstance<INavigationService>().initialize();
+  }
+
+  /// A global reference to the registered object for dependency injection/IoC.
+  static Container get container => _container;
 }
