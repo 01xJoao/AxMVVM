@@ -12,16 +12,16 @@ class ComponentResolver {
   T getInstance<T>() {
     final Type targetType = Utilities.typeOf<T>();
 
-    if (!_dependencyContainer.any((DependencyRegistration r) => identical(r.typeRegistered, targetType)))
+    if (!_dependencyContainer.any((DependencyRegistration dr) => identical(dr.typeRegistered, targetType)))
       throw StateError('The type ' + targetType.toString() + ' is not registered with the IoC container.');
 
-    final DependencyRegistration registration = 
+    final DependencyRegistration dependency = 
       _dependencyContainer.singleWhere((DependencyRegistration dr) => identical(dr.typeRegistered, targetType));
 
-    if (registration.registrationType == Lifestyle.singletonRegistration)
-      return registration.registeredInstance;
+    if (dependency.registrationType == Lifestyle.singletonRegistration)
+      return dependency.registeredInstance;
     else
-      return registration.factoryMethod();
+      return dependency.factoryMethod();
   }
 
   /// Registers an [instance] of an object of the generic type.
@@ -41,7 +41,7 @@ class ComponentResolver {
   }
 
   /// Removes all registrations from the dependency injection container.
-  void resetRegistrations() {
+  void cleanContainer() {
     _dependencyContainer = <DependencyRegistration>[];
   }
 
