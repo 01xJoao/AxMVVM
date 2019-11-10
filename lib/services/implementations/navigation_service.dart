@@ -23,7 +23,7 @@ class NavigationService implements INavigationService {
   @override
   ViewModel createViewModelForInitialView<V extends ViewModel>() {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
-    viewModel.initialize();
+    viewModel.initialize(null);
     _viewModelRepository.add(viewModel);
     return _viewModelRepository.last;
   }
@@ -79,7 +79,7 @@ class NavigationService implements INavigationService {
         Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
     }
 
-    _viewModelRepository.removeAt(_viewModelRepository.length-2)?.dispose();
+    _viewModelRepository.removeAt(_viewModelRepository.length-2).dispose();
   }
 
   /// Navigates to a new viewmodel and removes all viewmodels on the stack
@@ -134,9 +134,11 @@ class NavigationService implements INavigationService {
       
       for(int i = _viewModelRepository.length-1; i > index; i--){
         Navigator.of(_viewContext).pop();
+
         _viewModelRepository.last.closing();
         await _viewModelRepository.last.closingAsync();
-        _viewModelRepository.removeAt(i)?.dispose();
+
+        _viewModelRepository.removeAt(i).dispose();
       }
     }
   }
@@ -146,8 +148,8 @@ class NavigationService implements INavigationService {
   /// The [parameter] is a value that will be passed to the new viewmodel's init method.
   Future<void> _createViewModel<V extends ViewModel>(Object parameter) async {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
-    viewModel.initialize(parameter: parameter);
-    await viewModel.initializeAsync(parameter: parameter);
+    viewModel.initialize(parameter);
+    await viewModel.initializeAsync(parameter);
     _viewModelRepository.add(viewModel);
   }
 

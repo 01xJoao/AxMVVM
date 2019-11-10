@@ -4,10 +4,10 @@ part of axmvvm.bindings;
 ///
 /// These are normally static references within a class that inherits from BindableBase.
 class PropertyInfo {
+  int _id = -1;
   final String _name;
   final Type _type;
   Object _defaultValue;
-  int _id = -1;
 
   /// Creates a new instance of PropertyInfo.
   ///
@@ -29,6 +29,9 @@ class PropertyInfo {
     }
   }
 
+  /// A unique id used by axmvvm to tie this propertyinfo to a backing field in a class instance.
+  int get id => _id;
+
   /// The name of the property.
   String get name => _name;
 
@@ -40,13 +43,9 @@ class PropertyInfo {
   /// Used if the property is called before being explicitly set.
   Object get defaultValue => _defaultValue;
 
-  /// A unique id used by axmvvm to tie this propertyinfo to a backing field in a class instance.
-  int get id => _id;
-
-  void setIdentifier(int value) => _id = value;
-
   /// Used by axmvvm to create backing information for this property info.
-  FieldData createFieldData() {
-    return FieldData(_name, id, _defaultValue);
-  }
+  FieldData _createFieldData() => FieldData(_name, _id, _defaultValue);
+
+  /// axmvvm automatically sets a unique id to the propertyinfo.
+  void _setIdentifier(int value) => _id = value;
 }

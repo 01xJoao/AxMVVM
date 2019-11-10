@@ -66,9 +66,9 @@ abstract class AxApp extends StatelessWidget {
         child: Container(
           color: getLoadingViewColor(),
           child: BindingWidget<LocalizationService>(
-            bindings: <Binding>[
-              Binding(Constants.locate, l10nService, LocalizationService.localeProperty),
-              Binding(Constants.localizationReady, l10nService, LocalizationService.localizationReadyProperty)
+            bindings: <Bind>[
+              Bind(Constants.locate, l10nService, LocalizationService.localeProperty),
+              Bind(Constants.localizationReady, l10nService, LocalizationService.localizationReadyProperty)
             ],
             builder: (BuildContext context) { 
               return MaterialApp(

@@ -21,14 +21,14 @@ abstract class ViewModel extends BindableBase {
   /// Called after the constructer to initialize the viewmodel.
   ///
   /// Any information passed to be viewmodel is set via the [parameter].
-  void initialize({Object parameter}) {}
+  void initialize(Object parameter) {}
   
   /// Called asynchronously after the constructer to initialize the viewmodel.
   ///
   /// Any information passed to be viewmodel is set via the [parameter].
   /// 
   /// BottomNavigationViews don't have access to this method.
-  Future<void> initializeAsync({Object parameter}) async {}
+  Future<void> initializeAsync(Object parameter) async {}
 
   /// Called after view is ready, only available on stateful views
   void appeared() {}

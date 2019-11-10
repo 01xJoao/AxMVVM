@@ -3,7 +3,6 @@ library axmvvm.services;
 import 'package:axmvvm/axmvvm.dart';
 import 'package:axmvvm/bindings/bindings.dart';
 import 'package:axmvvm/models/models.dart';
-import 'package:axmvvm/utilities/utilities.dart';
 import 'package:flutter/material.dart';
 
 part 'interfaces/ilocalization_service.dart';
