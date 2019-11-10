@@ -8,10 +8,18 @@ class AxContainer {
   T getInstance<T>() {
     final Type targetType = Utilities.typeOf<T>();
 
+    for(AxDependency dr in _dependencyContainer)
+      print(dr.typeRegistered);
+
+    print('FINDING > $targetType');
+  
     if (!_dependencyContainer.any((AxDependency dr) => identical(dr.typeRegistered, targetType)))
       throw StateError('The type ' + targetType.toString() + ' is not registered with the IoC container.');
 
-    final AxDependency dependency = _dependencyContainer.singleWhere((AxDependency dr) => identical(dr.typeRegistered, targetType));
+    print('FOUND > $targetType');
+
+    final AxDependency dependency = _dependencyContainer.singleWhere(
+      (AxDependency dr) => identical(dr.typeRegistered, targetType));
 
     if (dependency.registrationType == Lifestyle.singletonRegistration)
       return dependency.registeredInstance;

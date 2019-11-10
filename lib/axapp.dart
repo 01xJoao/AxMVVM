@@ -4,6 +4,7 @@ part of axmvvm;
 abstract class AxApp extends StatelessWidget {
   @mustCallSuper
   AxApp() {
+    AxCore();
     registerComponents(AxCore.container);
   }
 
@@ -56,9 +57,9 @@ abstract class AxApp extends StatelessWidget {
 
   Widget appSetup() {
     final List<NavigatorObserver> navigatorObserver = getNavigatorObservers();
-    if(getLocalization != null) {
+    if(getLocalization() != null) {
       final LocalizationHelper localizationModel = getLocalization();
-      final LocalizationService l10nService = AxCore.container.getInstance<LocalizationService>();
+      final LocalizationService l10nService = AxCore.container.getInstance<ILocalizationService>();
       l10nService.initialize(localizationModel.root, localizationModel.supportedLocales);
       return FractionallySizedBox(
         widthFactor: 1, 
@@ -72,7 +73,7 @@ abstract class AxApp extends StatelessWidget {
             ],
             builder: (BuildContext context) { 
               return MaterialApp(
-                navigatorObservers: navigatorObserver,
+                navigatorObservers: navigatorObserver ?? <NavigatorObserver>[],
                 locale: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
                 title: getTitle(),
                 theme: getTheme(),
@@ -104,7 +105,7 @@ abstract class AxApp extends StatelessWidget {
             ));
     } else {
       return MaterialApp(
-        navigatorObservers: navigatorObserver,
+        navigatorObservers: navigatorObserver ?? <NavigatorObserver>[],
         title: getTitle(),
         theme: getTheme(),
         darkTheme: getDarkTheme(),
