@@ -1,7 +1,7 @@
 part of 'axmvvm.dart';
 
 /// A object that contains information about resolving an dependency
-class DependencyRegistration {
+class AxDependency {
   Type _typeRegistered;
   Lifestyle _registrationType;
   Object _registeredInstance;
@@ -19,7 +19,7 @@ class DependencyRegistration {
   /// A function to create an instance of an object for type registrations.
   Function get factoryMethod => _factoryMethod;
 
-  DependencyRegistration(Type typeRegistered, Lifestyle registrationLifestyle, {Object registeredSingleton, Function registerTransient}){
+  AxDependency(Type typeRegistered, Lifestyle registrationLifestyle, {Object registeredSingleton, Function registerTransient}){
     if (registrationLifestyle == null)
       throw ArgumentError('registration lifestyle cannot be null.');
 
