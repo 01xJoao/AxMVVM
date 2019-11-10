@@ -2,6 +2,15 @@ part of axmvvm.services;
 
 class LocalizationService extends BindableBase implements ILocalizationService {
 
+  static PropertyInfo localeProperty = PropertyInfo(Constants.locate, Locale, null);
+  String get locale => getValue(localeProperty);
+  set _locale(Locale locale) => setValue(localeProperty, locale);
+
+  static PropertyInfo localizationReadyProperty = PropertyInfo(Constants.localizationReady, bool, false);
+  bool get localization => getValue(localizationReadyProperty);
+  set _localization(bool ready) => setValue(localizationReadyProperty, ready);
+
+
   @override
   void initialize(String root, List<Locale> supportedLocales) {
   }

@@ -11,8 +11,7 @@ class Container {
     if (!_dependencyContainer.any((DependencyRegistration dr) => identical(dr.typeRegistered, targetType)))
       throw StateError('The type ' + targetType.toString() + ' is not registered with the IoC container.');
 
-    final DependencyRegistration dependency = 
-      _dependencyContainer.singleWhere((DependencyRegistration dr) => identical(dr.typeRegistered, targetType));
+    final DependencyRegistration dependency = _dependencyContainer.singleWhere((DependencyRegistration dr) => identical(dr.typeRegistered, targetType));
 
     if (dependency.registrationType == Lifestyle.singletonRegistration)
       return dependency.registeredInstance;
@@ -43,6 +42,6 @@ class Container {
 
   void _checkDependencyRegistration<T>() {
     if(_dependencyContainer.any((DependencyRegistration dr) => identical(dr.typeRegistered, Utilities.typeOf<T>())))
-      throw StateError('The same type cannot be registered twice');
+      throw StateError('The same type cannot be registered twice.');
   }
 }

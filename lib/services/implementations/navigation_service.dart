@@ -21,8 +21,8 @@ class NavigationService implements INavigationService {
   ///
   /// viewmodel's initializeAsync method is not called here.
   @override
-  ViewModel createViewModelForInitialView<T extends ViewModel>() {
-    final ViewModel viewModel = AxCore.container.getInstance<T>();
+  ViewModel createViewModelForInitialView<V extends ViewModel>() {
+    final ViewModel viewModel = AxCore.container.getInstance<V>();
     viewModel.initialize();
     _viewModelRepository.add(viewModel);
     return _viewModelRepository.last;
@@ -32,8 +32,8 @@ class NavigationService implements INavigationService {
   ///
   /// viewmodel's initialize and initializeAsync methods is not called here.
   @override
-  ViewModel createViewModelForBottomNavigation<T extends ViewModel>({Object parameter}) {
-    final ViewModel viewModel = AxCore.container.getInstance<T>();
+  ViewModel createViewModelForBottomNavigation<V extends ViewModel>({Object parameter}) {
+    final ViewModel viewModel = AxCore.container.getInstance<V>();
     _viewModelRepository.add(viewModel);
     return _viewModelRepository.last;
   }
@@ -55,10 +55,10 @@ class NavigationService implements INavigationService {
   /// 
   /// It is expected that the viewmodel being navigated to will return an object when it is popped off.
   @override
-  Future<O> navigateForResultAsync<O extends Object, V extends ViewModel>({Object parameter}) async {
+  Future<T> navigateForResultAsync<T extends Object, V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
 
-    return await Navigator.of(_viewContext).pushNamed<O>(
+    return await Navigator.of(_viewContext).pushNamed<T>(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 
@@ -116,7 +116,7 @@ class NavigationService implements INavigationService {
   /// 
   /// This should be used in conjunction with navigateAsyncForResult.
   @override
-  Future<void> navigateBackWithResultAsync<O extends Object>({O parameter}) async {
+  Future<void> navigateBackWithResultAsync<T extends Object>({T parameter}) async {
     if(Navigator.canPop(_viewContext)){
       Navigator.of(_viewContext).pop(parameter);
 

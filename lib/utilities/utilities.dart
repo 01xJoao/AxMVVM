@@ -1,4 +1,5 @@
 library axmvvm.utilities;
+
 import 'package:axmvvm/bindings/bindings.dart';
 
 class Utilities {
@@ -12,11 +13,11 @@ class Utilities {
   }
 }
 
-/// Contains static variables for items used by fmvvm.
+/// Contains static variables for items used by axmvvm.
 class Constants {
-  static String buildContext = "BuildContext";
-  static String locate = "Locale";
-  static String localizationReady = "LocalizationReady";
+  static const String buildContext = 'BuildContext';
+  static const String locate = 'Locale';
+  static const String localizationReady = 'LocalizationReady';
 }
 
 enum Lifestyle { transientRegistration, singletonRegistration }

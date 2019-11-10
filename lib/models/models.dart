@@ -10,3 +10,4 @@ part 'message.dart';
 part 'subscription.dart';
 part 'messenger.dart';
 part 'location.dart';
+part 'localization.dart';
