@@ -16,5 +16,5 @@ part 'fielddata.dart';
 part 'fielddata_manager.dart';
 part 'bind.dart';
 part 'notificationlist.dart';
-part 'bindingwidget.dart';
+part 'axbindwidget.dart';
 

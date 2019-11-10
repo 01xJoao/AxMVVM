@@ -7,20 +7,20 @@ class Bind {
   final String _key;
   /// The source bindable base object.
   BindableBase source;
-  BindDirection _bindingDirection;
+  BindDirection _bindDirection;
   final PropertyInfo _sourceProperty;
   IValueConverter _valueConverter;
   Object value = OriginalValueNeverSet;
 
-  Bind(this._key, this.source, this._sourceProperty, {BindDirection bindingDirection, IValueConverter valueConverter}) {
-    _bindingDirection = bindingDirection ?? BindDirection.TwoWay;
+  Bind(this._key, this.source, this._sourceProperty, {BindDirection bindDirection, IValueConverter valueConverter}) {
+    _bindDirection = bindDirection ?? BindDirection.TwoWay;
     _valueConverter = valueConverter;
   }
 
   String get key => _key;
 
   /// If the binding only happens once or if it is able to be bi-directional.
-  BindDirection get direction => _bindingDirection;
+  BindDirection get direction => _bindDirection;
 
   /// The propertyInfo object being bound to on the source.
   PropertyInfo get sourceProperty => _sourceProperty;

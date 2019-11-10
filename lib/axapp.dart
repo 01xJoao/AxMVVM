@@ -65,7 +65,7 @@ abstract class AxApp extends StatelessWidget {
         heightFactor: 1, 
         child: Container(
           color: getLoadingViewColor(),
-          child: BindingWidget<LocalizationService>(
+          child: AxBindWidget<LocalizationService>(
             bindings: <Bind>[
               Bind(Constants.locate, l10nService, LocalizationService.localeProperty),
               Bind(Constants.localizationReady, l10nService, LocalizationService.localizationReadyProperty)
@@ -73,11 +73,11 @@ abstract class AxApp extends StatelessWidget {
             builder: (BuildContext context) { 
               return MaterialApp(
                 navigatorObservers: navigatorObserver,
-                locale: BindingWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
+                locale: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
                 title: getTitle(),
                 theme: getTheme(),
                 darkTheme: getDarkTheme(),
-                home: BindingWidget.ofType<LocalizationService>(context).getValue(Constants.localizationReady) 
+                home: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.localizationReady) 
                   ? getInitialView(AxCore.container.getInstance<INavigationService>()) 
                   : const SizedBox(),
                 onGenerateRoute: getRoutes,
