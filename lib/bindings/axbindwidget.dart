@@ -106,10 +106,10 @@ class _AxBindWidgetState<T> extends State<AxBindWidget<BindableBase>> {
   void _createListener(Bind binding, List<BindableBase> addedListeners) {
     if (!addedListeners.any((BindableBase b) => b == binding.source)) {
       final Function(String) propertyListener = (String fieldName) {
-        final bool bindExists = _sourceBindings.any(
-          (Bind b) => b.sourceProperty.name == fieldName && b.source == binding.source);
-        if (binding.direction == BindDirection.TwoWay && (fieldName == '' || bindExists))
-          if(mounted)
+        final bool bindExists = _sourceBindings.any((Bind b) => 
+          b.sourceProperty.name == fieldName && b.source == binding.source);
+
+        if (mounted && binding.direction == BindDirection.TwoWay && (fieldName == '' || bindExists))
             setState((){});
       };
 
@@ -153,6 +153,7 @@ class _AxBindWidgetState<T> extends State<AxBindWidget<BindableBase>> {
         binding.source.removePropertyListener(bl.listener);
       }
     });
+    
     super.dispose();
   }
 }
@@ -172,7 +173,7 @@ class _BindingContext extends StatelessWidget {
 /// A class used to track listeners so they can be removed as part of the dispose method.
 class _BindingListener {
   final String _bindingKey;
-  final Object _listener;
+  final Function _listener;
   final bool _isListListener;
 
   _BindingListener(this._bindingKey, this._listener, this._isListListener);
