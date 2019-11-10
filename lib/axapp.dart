@@ -5,13 +5,13 @@ abstract class AxApp extends StatelessWidget {
   @mustCallSuper
   AxApp() {
     AxCore();
-    registerComponents(AxCore.container);
+    registerDependencies(AxCore.container);
   }
 
-  /// Called by the constructor to register any components to be resolved.
+  /// Called by the constructor to register any dependency to be resolved.
   ///
   /// Used for inversion of control.
-  void registerComponents(AxContainer container){}
+  void registerDependencies(AxContainer container);
 
   /// Set the title of the default app.
   String getTitle();

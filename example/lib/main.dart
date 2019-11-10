@@ -8,7 +8,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends AxApp {
   @override
-  void registerComponents(AxContainer container) {
+  void registerDependencies(AxContainer container) {
     container.registerTransient<MainViewModel>(() => MainViewModel());
   }
 
