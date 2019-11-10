@@ -20,7 +20,7 @@ class Bind {
   String get key => _key;
 
   /// If the binding only happens once or if it is able to be bi-directional.
-  BindDirection get bindingDirection => _bindingDirection;
+  BindDirection get direction => _bindingDirection;
 
   /// The propertyInfo object being bound to on the source.
   PropertyInfo get sourceProperty => _sourceProperty;

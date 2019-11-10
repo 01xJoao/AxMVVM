@@ -10,7 +10,7 @@ abstract class AxApp extends StatelessWidget {
   /// Called by the constructor to register any components to be resolved.
   ///
   /// Used for inversion of control.
-  void registerComponents(Container container){}
+  void registerComponents(AxContainer container){}
 
   /// Set the title of the default app.
   String getTitle();
@@ -73,11 +73,11 @@ abstract class AxApp extends StatelessWidget {
             builder: (BuildContext context) { 
               return MaterialApp(
                 navigatorObservers: navigatorObserver,
-                locale: BindingWidget.of<INavigationService>(context).getValue(Constants.locate),
+                locale: BindingWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
                 title: getTitle(),
                 theme: getTheme(),
                 darkTheme: getDarkTheme(),
-                home: BindingWidget.of<INavigationService>(context).getValue(Constants.localizationReady) 
+                home: BindingWidget.ofType<LocalizationService>(context).getValue(Constants.localizationReady) 
                   ? getInitialView(AxCore.container.getInstance<INavigationService>()) 
                   : const SizedBox(),
                 onGenerateRoute: getRoutes,

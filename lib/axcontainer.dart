@@ -1,6 +1,6 @@
 part of axmvvm;
 
-class Container {
+class AxContainer {
   /// Container of dependency registrations.
   static final List<DependencyRegistration> _dependencyContainer = <DependencyRegistration>[];
 
