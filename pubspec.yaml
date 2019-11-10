@@ -1,5 +1,5 @@
 name: axmvvm
-description: Affixal MVVM.
+description: AffixalMVVM is a architectural solution that helps developing applications with an easy and clean MVVM architecure.
 version: 0.1.0
 author: João Palma <joaowd@outlook.com>
 homepage: https://github.com/joaowd/AxMVVM
