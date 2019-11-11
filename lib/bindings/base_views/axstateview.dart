@@ -62,6 +62,16 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
+  Widget viewNavigatesBack({Widget view}){
+    return WillPopScope(
+      onWillPop: () async { 
+        _viewModel.close();
+        return false;
+      },
+      child: view ?? const SizedBox(),
+    );
+  }
+
   /// Builds the presentaiton for the widget.
   @override
   @mustCallSuper

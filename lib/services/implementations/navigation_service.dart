@@ -47,7 +47,7 @@ class NavigationService implements INavigationService {
   Future<void> navigateAsync<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
       
-    Navigator.of(_viewContext).pushNamed(
+    await Navigator.of(_viewContext).pushNamed(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 

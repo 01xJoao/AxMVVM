@@ -27,4 +27,14 @@ abstract class AxStatelessView<V extends ViewModel>
     AxCore.container.getInstance<IMessageService>().publish(Message(Constants.buildContext, context));
     return null;
   }
+
+  Widget viewNavigatesBack({Widget view}){
+    return WillPopScope(
+      onWillPop: () async { 
+        _viewModel.close();
+        return false;
+      },
+      child: view ?? const SizedBox(),
+    );
+  } 
 }

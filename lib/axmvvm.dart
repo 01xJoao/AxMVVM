@@ -14,3 +14,4 @@ part 'axcontainer.dart';
 part 'axdependency.dart';
 part 'axcore.dart';
 part 'axapp.dart';
+part 'axcommand.dart';
