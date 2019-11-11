@@ -46,17 +46,15 @@ abstract class INavigationService {
   /// The [parameter] is a value that will be passed to the new viewmodel's init method.
   Future<void> navigateAndRemoveAllAsync<V extends ViewModel>({Object parameter});
 
-  /// Creates a view model of a specified type.
-  ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
-  /// 
   /// This method is usefule for creating a viewmodel to pass to the application starting view.
-  ViewModel createViewModelForInitialView<V extends ViewModel>();
+  /// 
+  /// Viewmodel's method initializeAsync are not called automatically.
+  ViewModel createViewModelForInitialView<V extends ViewModel>({Object parameter});
 
   /// Creates a viewmodel for the bottom navigation of a specified type.
   /// 
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// Viewmodel's methods initialize and initializeAsync are not called automatically
   /// 
-  /// This won't call viewmodel's methods initialize or initializeAsync.
-  ViewModel createViewModelForBottomNavigation<V extends ViewModel>({Object parameter});
+  /// To call initialize(null) method set the view as a bottomnavigationview. 
+  ViewModel createViewModelForBottomNavigation<V extends ViewModel>();
 }

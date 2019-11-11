@@ -17,22 +17,24 @@ class NavigationService implements INavigationService {
     AxCore.container.getInstance<IMessageService>().subscribe(subscription);
   }
 
-  /// Creates a view model for the initial view
-  ///
-  /// viewmodel's initializeAsync method is not called here.
+  /// This method is usefule for creating a viewmodel to pass to the application starting view.
+  /// 
+  /// Viewmodel's method initializeAsync are not called automatically.
   @override
-  ViewModel createViewModelForInitialView<V extends ViewModel>() {
+  ViewModel createViewModelForInitialView<V extends ViewModel>({Object parameter}) {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
-    viewModel.initialize(null);
+    viewModel.initialize(parameter);
     _viewModelRepository.add(viewModel);
     return _viewModelRepository.last;
   }
 
-  /// Creates a view model for bottom navigation
-  ///
-  /// viewmodel's initialize and initializeAsync methods is not called here.
+  /// Creates a viewmodel for the bottom navigation of a specified type.
+  /// 
+  /// Viewmodel's methods initialize and initializeAsync are not called automatically.
+  /// 
+  /// To call initialize(null) method set the view as a bottomnavigationview. 
   @override
-  ViewModel createViewModelForBottomNavigation<V extends ViewModel>({Object parameter}) {
+  ViewModel createViewModelForBottomNavigation<V extends ViewModel>() {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
     _viewModelRepository.add(viewModel);
     return _viewModelRepository.last;
