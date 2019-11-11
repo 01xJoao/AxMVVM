@@ -1,10 +1,14 @@
-## [0.1.2] - Refactor method
+## [0.1.3] - Fix navigation service
 
-* Refactor dependency registration method.
+* Fix createViewModelForBottomNavigation and createViewModelForInitialView methods
 
 * TODO: 
     - Unit tests;
     - Create better example;
+
+## [0.1.2] - Refactor method
+
+* Refactor dependency registration method.
 
 ## [0.1.1] - Update pubspec description.
 
