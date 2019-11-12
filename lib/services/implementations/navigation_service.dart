@@ -36,6 +36,19 @@ class NavigationService implements INavigationService {
   ///
   /// The [parameter] is a value that will be passed to the new viewmodel's init method.
   @override
+  Future<void> navigate<V extends ViewModel>({Object parameter}) async {
+    await _createViewModel<V>(parameter);
+      
+    _navigator.currentState.pushNamed(
+      Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
+  }
+
+  /// Navigates to a new viewmodel of the type specified by the generic.
+  ///
+  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// 
+  /// Awaits for the new view to close.
+  @override
   Future<void> navigateAsync<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
       

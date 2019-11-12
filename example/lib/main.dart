@@ -54,9 +54,9 @@ class MainViewModel extends ViewModel {
   AxCommand<String> get loginCommand => _loginCommand ??= AxCommand<String>(
     actionParam: ({String parameter}) => verifyLogin(parameter), canExecute: checkLoading);
 
-  void verifyLogin(String name){
+  void verifyLogin(String name) {
     _loginService.login(name);
-    ViewModel.navigationService.navigateAsync<TestViewModel>();
+    ViewModel.navigationService.navigate<TestViewModel>();
   }
 
   bool checkLoading() => !isBusy;

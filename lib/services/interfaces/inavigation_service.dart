@@ -9,7 +9,14 @@ abstract class INavigationService {
 
   /// Navigates to a new viewmodel of the type specified by the generic.
   ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method. 
+  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  void navigate<V extends ViewModel>({Object parameter});
+
+  /// Navigates to a new viewmodel of the type specified by the generic.
+  ///
+  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// 
+  /// Awaits for the new view to close.
   Future<void> navigateAsync<V extends ViewModel>({Object parameter});
 
   /// Navigates to a new viewmodel of the type specified by the generic.
