@@ -1,11 +1,13 @@
-## [0.2.0] - Fix navigation service v2
-
-* Fix async navigation.
-* Fix navigate back methods.
+## [0.2.1] - Refactor closing viewmodel
 
 * TODO: 
     - Unit tests;
     - Create better example;
+
+## [0.2.0] - Fix navigation service v2
+
+* Fix async navigation.
+* Fix navigate back methods.
 
 ## [0.1.3] - Fix navigation service
 
