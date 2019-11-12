@@ -5,7 +5,7 @@ part of axmvvm.bindings;
 /// This class must be exended whenever data binding is desired for a StatelfulView.
 /// Intended to be used in conjenction with the AxStatefulView class.
 abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
-    extends State<T> implements ViewModelHolder<V> {
+    extends State<T> with WidgetsBindingObserver implements ViewModelHolder<V> {
 
   final V _viewModel;
   final bool _isBottomNavigationView;
@@ -24,7 +24,6 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
   /// The class's viewmodel reference.
   @override
   V get viewModel => _viewModel;
-
   bool get isDeviceInPortrait => _isDeviceInPortrait;
   bool get isDeviceApple => Platform.isIOS || Platform.isMacOS;
   bool get isDeviceSmartPhone => SmartphoneDetector.isSmartPhone(_mediaQueryData);
@@ -37,6 +36,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
   /// This method is only called once when the view is built for the first time.
   /// 
   /// Context of the view is available.
+  @mustCallSuper
   void viewDidLoad() {
     _mediaQueryData = MediaQuery.of(context);
     _isDeviceInPortrait = _mediaQueryData.orientation == Orientation.portrait;
@@ -46,9 +46,12 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
     _viewDidLoad = true;
   }
 
-  void viewDidDisapear(){}
+  void viewDidEnterForeground(){}
 
-  
+  void viewDidEnterBackground(){}
+
+  void viewDidDisappear(){}
+
   /// Call this method on top of the widget tree to call viewmodel's close method when pressing back button
   /// 
   /// This will remove the swipe back gesture
@@ -63,13 +66,15 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
   } 
 
   @override
+  @mustCallSuper
   void initState(){
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     if(_isBottomNavigationView ?? false)
       _viewModel.initialize(null);
   }
     
-  /// Creates viewDidLoad functionality.
+  /// Creates method viewDidLoad.
   @override
   @mustCallSuper
   void didChangeDependencies() {
@@ -78,12 +83,24 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
-  /// Creates viewDidDisapear functionality, makes sure the viewmodel will be disposed.
+  /// Creates methods viewEnterBackground and viewEnterForeground
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused)
+      viewDidEnterBackground();
+    if (state == AppLifecycleState.resumed)
+      viewDidEnterForeground();
+  }
+
+  /// Creates method viewDidDisapear and makes sure the viewmodel will be disposed.
+  @override
+  @mustCallSuper
   void dispose() {
-    viewDidDisapear();
+    viewDidDisappear();
     if(_viewModel != null)
       AxCore.container.getInstance<INavigationService>().navigatingBack(closedViewModel: _viewModel);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
