@@ -29,7 +29,7 @@ abstract class INavigationService {
   /// Pops the current view / viewmodel off the stack and goes to the previous one.
   Future<void> navigateBackAsync();
 
-  /// Navigation logic method, don't override this.
+  /// Navigation logic method, don't use this.
   Future<void> navigatingBack({ViewModel closedViewModel});
 
   /// Pops the current view / viewmodel off the stack and goes to the previous one.

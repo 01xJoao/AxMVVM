@@ -127,7 +127,7 @@ class NavigationService implements INavigationService {
       }
   }
 
-  /// Navigation logic method, don't override this.
+  /// Navigation logic method, don't use this.
   @override
   Future<void> navigatingBack({ViewModel closedViewModel}) async {
     if(closedViewModel != null && closedViewModel != _viewModelRepository.last)
