@@ -48,11 +48,4 @@ abstract class ViewModel extends BindableBase {
   Future<void> close() async {
     await _navigationService.navigateBackAsync();
   }
-
-  /// Navigation logic method, don't override this.
-  @protected
-  Future<void> closed() async {
-    if(this != null)
-      await _navigationService.navigatingBack(closedViewModel: this);
-  }
 }

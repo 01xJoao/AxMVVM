@@ -46,6 +46,8 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
     _viewDidLoad = true;
   }
 
+  void viewDidDisapear(){}
+
   /// Call this method on top of the widget tree to send data back
   /// 
   /// This will remove the swipe back gesture
@@ -75,9 +77,12 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
+
   @override
   void dispose() {
-    viewModel.closed();
+    viewDidDisapear();
+    if(_viewModel != null)
+      AxCore.container.getInstance<INavigationService>().navigatingBack(closedViewModel: _viewModel);
     super.dispose();
   }
 }
