@@ -48,9 +48,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
 
   void viewDidDisapear(){}
 
-  /// Call this method on top of the widget tree to send data back
-  /// 
-  /// This will remove the swipe back gesture
+  /// Call this method on top of the widget tree to send data back.
   Widget viewWithBackResult({Widget view}){
     return WillPopScope(
       onWillPop: () async { 
@@ -68,7 +66,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       _viewModel.initialize(null);
   }
     
-  /// Creates viewDidLoad functionality
+  /// Creates viewDidLoad functionality.
   @override
   @mustCallSuper
   void didChangeDependencies() {
@@ -77,7 +75,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
-
+  /// Creates viewDidDisapear functionality, makes sure the viewmodel will be disposed.
   @override
   void dispose() {
     viewDidDisapear();
