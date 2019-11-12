@@ -75,7 +75,7 @@ class TestViewState extends AxStateView<TestView, TestViewModel> {
   TestViewState(ViewModel viewModel) : super(viewModel);
   @override
   Widget build(BuildContext context) {
-    return viewWithBackResult(
+    return handleBackButton(
       view: Scaffold(
         appBar: AppBar(
           title: const Text('AxMVVM'),

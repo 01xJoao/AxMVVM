@@ -48,8 +48,11 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
 
   void viewDidDisapear(){}
 
-  /// Call this method on top of the widget tree to send data back.
-  Widget viewWithBackResult({Widget view}){
+  
+  /// Call this method on top of the widget tree to call viewmodel's close method when pressing back button
+  /// 
+  /// This will remove the swipe back gesture
+  Widget handleBackButton({Widget view}){
     return WillPopScope(
       onWillPop: () async { 
         _viewModel.close();

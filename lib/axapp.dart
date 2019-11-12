@@ -121,25 +121,10 @@ abstract class AxApp extends StatelessWidget {
   ///
   /// This method is usually called within [getRoutes]
   CupertinoPageRoute<R> buildRoute<R extends Object>(RouteSettings settings, Widget builder, [bool isModal = false]) {
-    return CustomMaterialPageRoute<R>(
+    return CupertinoPageRoute<R>(
       settings: settings,
       fullscreenDialog: isModal,
       builder: (BuildContext context) => builder
     );
   }
-}
-
-class CustomMaterialPageRoute<R> extends CupertinoPageRoute<R> {
-  @override
-  bool get hasScopedWillPopCallback => false;
-
-  CustomMaterialPageRoute({
-    @required WidgetBuilder builder,
-    RouteSettings settings,
-    bool fullscreenDialog,
-  }) : super(
-    builder: builder,
-    settings: settings,
-    fullscreenDialog: fullscreenDialog,
-  );
 }
