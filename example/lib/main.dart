@@ -9,7 +9,8 @@ void main() => runApp(MyApp());
 class MyApp extends AxApp {
   @override
   void registerDependencies(AxContainer container) {
-    container.registerSingleton<IWebLoginService>(WebLoginService());
+    container.registerLazySingleton<IWebLoginService>(() => WebLoginService());
+    
     container.registerTransient<MainViewModel>(() => MainViewModel(container.getInstance<IWebLoginService>()));
     container.registerTransient<TestViewModel>(() => TestViewModel(container.getInstance<IWebLoginService>()));
   }

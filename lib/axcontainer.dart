@@ -16,6 +16,15 @@ class AxContainer {
 
     if (dependency.registrationType == Lifestyle.singletonRegistration)
       return dependency.registeredInstance;
+    else if (dependency.registrationType == Lifestyle.lazySingletonRegistration){
+      _dependencyContainer.removeWhere((AxDependency d) => d == dependency);
+      registerSingleton<T>(dependency.lazySingletonInstance());
+      
+      final AxDependency newDependency = _dependencyContainer.singleWhere(
+        (AxDependency dr) => identical(dr.typeRegistered, targetType));
+      
+      return newDependency.registeredInstance;
+    }
     else
       return dependency.factoryMethod();
   }
@@ -25,7 +34,15 @@ class AxContainer {
   /// All calls to resolve based on this type will always return the registered instance (singleton).
   void registerSingleton<T>(T instance) {
     _checkDependencyRegistration<T>();
-    _dependencyContainer.add(AxDependency(T, Lifestyle.singletonRegistration, registeredSingleton: instance));
+    _dependencyContainer.add(AxDependency(T, Lifestyle.singletonRegistration, registerSingleton: instance));
+  }
+
+  /// Registers a type that can be resolved.
+  ///
+  /// The [factoryMethod] is a reference to a function that should create an instance of this type.
+  void registerLazySingleton<T>(Function singletonCreationMethod){
+    _checkDependencyRegistration<T>();
+    _dependencyContainer.add(AxDependency(T, Lifestyle.lazySingletonRegistration, registerLazySingleton: singletonCreationMethod));
   }
 
   /// Registers a type that can be resolved.

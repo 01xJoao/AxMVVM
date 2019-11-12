@@ -32,8 +32,8 @@ abstract class IValueConverter {
 /// Used to tell if a Binding object's original value was ever set.
 class OriginalValueNeverSet {}
 
-/// What type of binding to create.
-enum Lifestyle { transientRegistration, singletonRegistration }
+/// What type of instance should be created.
+enum Lifestyle { transientRegistration, singletonRegistration, lazySingletonRegistration }
 
 /// What type of binding to create.
 enum BindDirection { OneTime, TwoWay }
