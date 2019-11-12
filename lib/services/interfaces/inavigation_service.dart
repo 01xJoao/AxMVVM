@@ -4,10 +4,8 @@ part of axmvvm.services;
 ///
 /// An implementation of this class is the basis for viewmodel first navigation.
 abstract class INavigationService {
-  /// Any initiliazation needed to be done by the messenger service.
-  ///
-  /// This is called once when axmvvm is initialized.
-  void initialize();
+  ///Global key for the app navigation.
+  GlobalKey<NavigatorState> get navigator;
 
   /// Navigates to a new viewmodel of the type specified by the generic.
   ///

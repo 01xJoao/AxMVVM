@@ -53,7 +53,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       _viewModel.initialize(null);
   }
     
-  // Creates viewDidLoad functionality
+  /// Creates viewDidLoad functionality
   @override
   @mustCallSuper
   void didChangeDependencies() {
@@ -62,7 +62,10 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
-  Widget viewNavigatesBack({Widget view}){
+  /// Call this method on top of the widget tree to send data back
+  /// 
+  /// This will remove the swipe back gesture
+  Widget viewWithBackResult({Widget view}){
     return WillPopScope(
       onWillPop: () async { 
         _viewModel.close();
@@ -70,13 +73,5 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       },
       child: view ?? const SizedBox(),
     );
-  }
-
-  /// Builds the presentaiton for the widget.
-  @override
-  @mustCallSuper
-  Widget build(BuildContext context) {
-    AxCore.container.getInstance<IMessageService>().publish(Message(Constants.buildContext, context));
-    return null;
-  }
+  } 
 }

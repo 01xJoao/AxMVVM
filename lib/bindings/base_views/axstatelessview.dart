@@ -20,15 +20,8 @@ abstract class AxStatelessView<V extends ViewModel>
   @override
   V get viewModel => _viewModel;
   
-  /// Builds the presentaiton for the widget.
-  @override
-  @mustCallSuper
-  Widget build(BuildContext context) {
-    AxCore.container.getInstance<IMessageService>().publish(Message(Constants.buildContext, context));
-    return null;
-  }
-
-  Widget viewNavigatesBack({Widget view}){
+  /// Call this method on top of the widget view tree if the view navigates back
+  Widget viewWithBackResult({Widget view}){
     return WillPopScope(
       onWillPop: () async { 
         _viewModel.close();

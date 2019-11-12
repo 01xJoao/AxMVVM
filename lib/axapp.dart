@@ -73,6 +73,7 @@ abstract class AxApp extends StatelessWidget {
             ],
             builder: (BuildContext context) { 
               return MaterialApp(
+                navigatorKey: AxCore.container.getInstance<INavigationService>().navigator,
                 navigatorObservers: navigatorObserver ?? <NavigatorObserver>[],
                 locale: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
                 title: getTitle(),
@@ -105,6 +106,7 @@ abstract class AxApp extends StatelessWidget {
             ));
     } else {
       return MaterialApp(
+        navigatorKey: AxCore.container.getInstance<INavigationService>().navigator,
         navigatorObservers: navigatorObserver ?? <NavigatorObserver>[],
         title: getTitle(),
         theme: getTheme(),

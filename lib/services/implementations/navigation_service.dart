@@ -2,20 +2,12 @@ part of axmvvm.services;
 
 /// Implementation of the axmvvm NavigationService interface.
 class NavigationService implements INavigationService {
-  BuildContext _viewContext;
+  final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
   final List<ViewModel> _viewModelRepository = <ViewModel>[];
 
-  /// Creates a subscription for the context of the view.
-  ///
-  /// This is called once when axmvvm is initialized.
+  /// Global key for the app navigation.
   @override
-  void initialize() {
-    final Subscription subscription = Subscription(Constants.buildContext, (Object context) {
-      _viewContext = context;
-    });
-
-    AxCore.container.getInstance<IMessageService>().subscribe(subscription);
-  }
+  GlobalKey<NavigatorState> get navigator => _navigator;
 
   /// This method is usefule for creating a viewmodel to pass to the application starting view.
   /// 
@@ -47,7 +39,7 @@ class NavigationService implements INavigationService {
   Future<void> navigateAsync<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
       
-    await Navigator.of(_viewContext).pushNamed(
+    await _navigator.currentState.pushNamed(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 
@@ -60,7 +52,7 @@ class NavigationService implements INavigationService {
   Future<T> navigateForResultAsync<T extends Object, V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
 
-    return await Navigator.of(_viewContext).pushNamed<T>(
+    return await _navigator.currentState.pushNamed<dynamic>(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 
@@ -74,10 +66,10 @@ class NavigationService implements INavigationService {
     await _createViewModel<V>(parameter);
       
     if(animateToBackFirst){
-      Navigator.of(_viewContext).popAndPushNamed(
+      _navigator.currentState.popAndPushNamed(
         Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
     } else {
-      Navigator.of(_viewContext).pushReplacementNamed(
+      _navigator.currentState.pushReplacementNamed(
         Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
     }
 
@@ -91,7 +83,7 @@ class NavigationService implements INavigationService {
   Future<void> navigateAndRemoveAllAsync<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
 
-    Navigator.of(_viewContext).pushNamedAndRemoveUntil(
+    _navigator.currentState.pushNamedAndRemoveUntil(
       Utilities.getViewFromViewModelType<V>(), 
       (Route<dynamic> route) => false, 
       arguments: _viewModelRepository.last
@@ -103,8 +95,8 @@ class NavigationService implements INavigationService {
   /// Pops the current view / viewmodel off the stack and goes to the previous one.
   @override
   Future<void> navigateBackAsync() async {
-    if(Navigator.canPop(_viewContext)) {
-      Navigator.of(_viewContext).pop();
+    if(_navigator.currentState.canPop()) {
+      _navigator.currentState.pop();
 
       _viewModelRepository.last.closing();
       await _viewModelRepository.last.closingAsync();
@@ -119,8 +111,8 @@ class NavigationService implements INavigationService {
   /// This should be used in conjunction with navigateAsyncForResult.
   @override
   Future<void> navigateBackWithResultAsync<T extends Object>({T parameter}) async {
-    if(Navigator.canPop(_viewContext)){
-      Navigator.of(_viewContext).pop(parameter);
+    if(_navigator.currentState.canPop()){
+      _navigator.currentState.pop(parameter);
 
       _viewModelRepository.last.closing();
       await _viewModelRepository.last.closingAsync();
@@ -135,7 +127,7 @@ class NavigationService implements INavigationService {
       final int index = _viewModelRepository.indexWhere((ViewModel v) => v.runtimeType == V);
       
       for(int i = _viewModelRepository.length-1; i > index; i--){
-        Navigator.of(_viewContext).pop();
+        _navigator.currentState.pop();
 
         _viewModelRepository.last.closing();
         await _viewModelRepository.last.closingAsync();

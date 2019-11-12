@@ -13,7 +13,6 @@ class Utilities {
 
 /// Contains static variables for items used by axmvvm.
 class Constants {
-  static const String buildContext = 'BuildContext';
   static const String locate = 'Locale';
   static const String localizationReady = 'LocalizationReady';
 }

@@ -33,15 +33,14 @@ class MainView extends AxStatelessView<MainViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('AxMVVM'),
       ),
-      body: viewNavigatesBack(view: InkWell(
-        onTap: () => viewModel.loginCommand.execute(param: 'AxMVVM'),
+      body: InkWell(
+        onTap: () => viewModel.loginCommand.execute(parameter: 'AxMVVM'),
         child: const Text('Hello!'),
-      ))
+      )
     );
   }
 }
@@ -53,7 +52,7 @@ class MainViewModel extends ViewModel {
   AxCommand<String> _loginCommand;
 
   AxCommand<String> get loginCommand => _loginCommand ??= AxCommand<String>(
-    actionParam: ({String param}) => verifyLogin(param), canExecute: checkLoading);
+    actionParam: ({String parameter}) => verifyLogin(parameter), canExecute: checkLoading);
 
   void verifyLogin(String name){
     _loginService.login(name);
@@ -75,17 +74,16 @@ class TestViewState extends AxStateView<TestView, TestViewModel> {
   TestViewState(ViewModel viewModel) : super(viewModel);
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('AxMVVM'),
       ),
-      body: viewNavigatesBack(
+      body: viewWithBackResult(
         view: InkWell(
-          onTap: () => viewModel.loginCommand.execute(param: 'AxMVVM'),
+          onTap: () => viewModel.loginCommand.execute(parameter: 'AxMVVM'),
           child: const Text('Hello 1!'),
-      ))
-    );
+      )
+    ));
   }
 }
 
@@ -95,11 +93,17 @@ class TestViewModel extends ViewModel {
 
   AxCommand<String> _loginCommand;
   AxCommand<String> get loginCommand => _loginCommand ??= AxCommand<String>(
-    actionParam: ({String param}) => verifyLogin(param), canExecute: checkLoading);
+    actionParam: ({String parameter}) => verifyLogin(parameter), canExecute: checkLoading);
 
-  void verifyLogin(String name){
+  Future<void> verifyLogin(String name) async {
     _loginService.login(name);
-    ViewModel.navigationService.navigateAsync<TestViewModel>();
+    final ObjectTest test = await ViewModel.navigationService.navigateForResultAsync<ObjectTest, TestViewModel>();
+    print(test.name);
+  }
+  
+  @override
+  Future<void> close() async {
+    ViewModel.navigationService.navigateBackWithResultAsync<ObjectTest>(parameter: ObjectTest('TEst Workingdawda!!!'));
   }
 
   bool checkLoading() => !isBusy;
@@ -114,4 +118,9 @@ class WebLoginService implements IWebLoginService{
   void login(String name) {
    print(name);
   }
+}
+
+class ObjectTest {
+  final String name;
+  ObjectTest(this.name);
 }

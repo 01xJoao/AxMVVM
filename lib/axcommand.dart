@@ -1,7 +1,7 @@
 part of axmvvm;
 
 typedef Action = void Function();
-typedef ActionParam<Tparam> = void Function({Tparam param});
+typedef ActionParam<Tparam> = void Function({Tparam parameter});
 
 /// Used by ViewModels and other BindableBase objects to execute a command/function.
 ///
@@ -9,7 +9,7 @@ typedef ActionParam<Tparam> = void Function({Tparam param});
 class AxCommand<T> {
   AxCommand({Action action, ActionParam<T> actionParam, Function canExecute}) {
     if(action != null)
-      _action = ({T param}) => action();
+      _action = ({T parameter}) => action();
     else if(actionParam != null)
       _action = actionParam; 
     else
