@@ -19,8 +19,10 @@ abstract class AxStatelessView<V extends ViewModel>
   /// The class's viewmodel reference.
   @override
   V get viewModel => _viewModel;
-  
-  /// Call this method on top of the widget view tree if the view navigates back
+
+  /// Call this method on top of the widget tree to send data back
+  /// 
+  /// This will remove the swipe back gesture
   Widget viewWithBackResult({Widget view}){
     return WillPopScope(
       onWillPop: () async { 

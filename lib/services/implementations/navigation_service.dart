@@ -108,12 +108,9 @@ class NavigationService implements INavigationService {
   /// Pops the current view / viewmodel off the stack and goes to the previous one.
   @override
   Future<void> navigateBackAsync() async {
-    if(_navigator.currentState.canPop()) {
+    if(_navigator.currentState.canPop()){
       _navigator.currentState.pop();
-
-      _viewModelRepository.last.closing();
-      await _viewModelRepository.last.closingAsync();
-      _viewModelRepository.removeLast().dispose();
+      await navigatingBack();
     }
   }
 
@@ -123,14 +120,22 @@ class NavigationService implements INavigationService {
   /// 
   /// This should be used in conjunction with navigateAsyncForResult.
   @override
-  Future<void> navigateBackWithResultAsync<T extends Object>({T parameter}) async {
+  Future<void> navigateBackWithResultAsync<T extends Object>(T parameter) async {
     if(_navigator.currentState.canPop()){
-      _navigator.currentState.pop(parameter);
+        _navigator.currentState.pop(parameter);
+        await navigatingBack();
+      }
+  }
 
-      _viewModelRepository.last.closing();
-      await _viewModelRepository.last.closingAsync();
-      _viewModelRepository.removeLast().dispose();
-    }
+  /// Navigation logic method, don't override this.
+  @override
+  Future<void> navigatingBack({ViewModel closedViewModel}) async {
+    if(closedViewModel != null && closedViewModel != _viewModelRepository.last)
+      return;
+
+    _viewModelRepository.last.closing();
+    await _viewModelRepository.last.closingAsync();
+    _viewModelRepository.removeLast().dispose();
   }
 
   /// Will close all views and viewmodels async until it finds the viewmodel type 

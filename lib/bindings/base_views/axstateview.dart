@@ -46,6 +46,19 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
     _viewDidLoad = true;
   }
 
+  /// Call this method on top of the widget tree to send data back
+  /// 
+  /// This will remove the swipe back gesture
+  Widget viewWithBackResult({Widget view}){
+    return WillPopScope(
+      onWillPop: () async { 
+        _viewModel.close();
+        return false;
+      },
+      child: view ?? const SizedBox(),
+    );
+  } 
+
   @override
   void initState(){
     super.initState();
@@ -62,16 +75,9 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
-  /// Call this method on top of the widget tree to send data back
-  /// 
-  /// This will remove the swipe back gesture
-  Widget viewWithBackResult({Widget view}){
-    return WillPopScope(
-      onWillPop: () async { 
-        _viewModel.close();
-        return false;
-      },
-      child: view ?? const SizedBox(),
-    );
-  } 
+  @override
+  void dispose() {
+    viewModel.closed();
+    super.dispose();
+  }
 }

@@ -54,9 +54,10 @@ class MainViewModel extends ViewModel {
   AxCommand<String> get loginCommand => _loginCommand ??= AxCommand<String>(
     actionParam: ({String parameter}) => verifyLogin(parameter), canExecute: checkLoading);
 
-  void verifyLogin(String name) {
+  Future<void> verifyLogin(String name) async {
     _loginService.login(name);
-    ViewModel.navigationService.navigate<TestViewModel>();
+    await ViewModel.navigationService.navigateAsync<TestViewModel>();
+    print('back');
   }
 
   bool checkLoading() => !isBusy;
@@ -74,16 +75,16 @@ class TestViewState extends AxStateView<TestView, TestViewModel> {
   TestViewState(ViewModel viewModel) : super(viewModel);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('AxMVVM'),
-      ),
-      body: viewWithBackResult(
-        view: InkWell(
-          onTap: () => viewModel.loginCommand.execute(parameter: 'AxMVVM'),
-          child: const Text('Hello 1!'),
-      )
-    ));
+    return viewWithBackResult(
+      view: Scaffold(
+        appBar: AppBar(
+          title: const Text('AxMVVM'),
+        ),
+        body: InkWell(
+            onTap: () => viewModel.loginCommand.execute(parameter: 'AxMVVM'),
+            child: const Text('Hello 1!'),
+      ))
+    );
   }
 }
 
@@ -98,13 +99,14 @@ class TestViewModel extends ViewModel {
   Future<void> verifyLogin(String name) async {
     _loginService.login(name);
     final ObjectTest test = await ViewModel.navigationService.navigateForResultAsync<ObjectTest, TestViewModel>();
-    print(test.name);
+    if(test != null)
+      print(test.name);
   }
   
-  @override
-  Future<void> close() async {
-    ViewModel.navigationService.navigateBackWithResultAsync<ObjectTest>(parameter: ObjectTest('TEst Workingdawda!!!'));
-  }
+  // @override
+  // Future<void> close() async {
+  //   ViewModel.navigationService.navigateBackWithResultAsync<ObjectTest, ViewModel>(ObjectTest('TEst Workingdawda!!!'), this);
+  // }
 
   bool checkLoading() => !isBusy;
 }

@@ -29,12 +29,15 @@ abstract class INavigationService {
   /// Pops the current view / viewmodel off the stack and goes to the previous one.
   Future<void> navigateBackAsync();
 
+  /// Navigation logic method, don't override this.
+  Future<void> navigatingBack({ViewModel closedViewModel});
+
   /// Pops the current view / viewmodel off the stack and goes to the previous one.
   ///
   /// The [paramter] is the result to send back to the calling viewmodel.
   /// 
   /// This should be used in conjunction with navigateAsyncForResult.
-  Future<void> navigateBackWithResultAsync<T extends Object>({T parameter});
+  Future<void> navigateBackWithResultAsync<T extends Object>(T parameter);
 
   /// Will close all views and viewmodels async until it finds the viewmodel type   
   Future<void> navigateBackUntilAsync<V extends ViewModel>();

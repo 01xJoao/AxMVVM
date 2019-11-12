@@ -1,10 +1,15 @@
-## [0.1.3] - Fix navigation service
+## [0.2.0] - Fix navigation service v2
 
-* Fix createViewModelForBottomNavigation and createViewModelForInitialView methods
+* Fix async navigation.
+* Fix navigate back methods.
 
 * TODO: 
     - Unit tests;
     - Create better example;
+
+## [0.1.3] - Fix navigation service
+
+* Fix createViewModelForBottomNavigation and createViewModelForInitialView methods
 
 ## [0.1.2] - Refactor method
 
