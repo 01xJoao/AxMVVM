@@ -1,21 +1,26 @@
-## [0.2.3]
+## [0.3.0]
 
-* Change App Setup
+* Add resumed() and paused() methods to base viewmodel.
+* Update documentation.
 
 * TODO: 
-    - Unit tests;
-    - Create better example;
+    - Unit tests.
+    - Create better example.
+
+## [0.2.3]
+
+* Change App Setup.
 
 ## [0.2.2]
 
 * Now its possible to create lazySingletons.
 * Change how back button handle event works.
 * Added view events when app goes background and foregorund.
-* Update docs.
+* Update documentation.
 
 ## [0.2.1]
 
-* Refactor closing viewModel
+* Refactor closing viewModel.
 
 ## [0.2.0]
 
@@ -24,7 +29,7 @@
 
 ## [0.1.3]
 
-* Fix createViewModelForBottomNavigation and createViewModelForInitialView methods
+* Fix createViewModelForBottomNavigation and createViewModelForInitialView methods.
 
 ## [0.1.2]
 
