@@ -7,8 +7,7 @@ abstract class ILocalizationService extends LocalizationsDelegate<Location> {
   /// Initialize the service by giving the root for the json l10n files
   void initialize(String root, List<Locale> supportedLocales);
 
-  /// Must be called everytime the application starts to support a
-  /// different language of the system prefferred language.
+  /// Set a different language of the system prefferred language.
   void setLanguage(String language);
 
   /// Get the current language used by the application.
