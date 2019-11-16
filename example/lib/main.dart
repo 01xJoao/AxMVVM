@@ -1,3 +1,4 @@
+import 'package:axmvvm/models/appconfig.dart';
 import 'package:flutter/material.dart';
 
 import 'package:axmvvm/axmvvm.dart';
@@ -8,23 +9,24 @@ void main() => runApp(MyApp());
 
 class MyApp extends AxApp {
   @override
+  AppConfig appConfiguraton() {
+    return AppConfig('AxMVVM');
+  }
+
+  @override
   void registerDependencies(AxContainer container) {
     container.registerLazySingleton<IWebLoginService>(() => WebLoginService());
-    
     container.registerTransient<MainViewModel>(() => MainViewModel(container.getInstance<IWebLoginService>()));
     container.registerTransient<TestViewModel>(() => TestViewModel(container.getInstance<IWebLoginService>()));
   }
 
   @override
-  String getTitle() => 'AxMVVM';
-
-  @override
-  Widget getInitialView(INavigationService navigationService) {
+  Widget initialView(INavigationService navigationService) {
     return MainView(navigationService.createViewModelForInitialView<MainViewModel>());
   }
 
   @override
-  Route<dynamic> getRoutes(RouteSettings settings) {
+  Route<dynamic> routes(RouteSettings settings) {
     return buildRoute(settings, TestView(settings.arguments));
   }
 }

@@ -8,64 +8,36 @@ abstract class AxApp extends StatelessWidget {
     registerDependencies(AxCore.container);
   }
 
+  /// Setup the basic app properties.
+  AppConfig appConfiguraton();
+
   /// Called by the constructor to register any dependency to be resolved.
-  ///
-  /// Used for inversion of control.
   void registerDependencies(AxContainer container);
 
-  /// Set the title of the default app.
-  String getTitle();
-
-  /// Set the localization of the app,
-  ///
-  /// Don't call super if you override this method.
-  LocalizationHelper getLocalization() => null;
-
-  /// Set the color of the loading view while Localization Service is setting up
-  ///
-  /// For a better seamless experience set the same color as the App Launch Screen color
-  Color getLoadingViewColor() => Colors.white;
-
-  /// Set the navigation observers of the app 
-  ///
-  /// Don't call super if you override this method.
-  List<NavigatorObserver> getNavigatorObservers() => null;
-
-  /// The theme to use for the app.
-  ///
-  /// By default it uses a blue colored theme.
-  ThemeData getTheme() => ThemeData(primarySwatch: Colors.blue);
-
-  /// The dark theme to use for the app.
-  ///
-  /// By default it uses a yellow colored theme.
-  ThemeData getDarkTheme() => ThemeData(primarySwatch: Colors.yellow);
-
   /// Set the initial view.
-  Widget getInitialView(INavigationService navigationService);
+  Widget initialView(INavigationService navigationService);
 
   /// Returns a list of routes for the application.
-  Route<dynamic> getRoutes(RouteSettings settings);
+  Route<dynamic> routes(RouteSettings settings);
 
-  /// Override this method if you want to customize your build.
+  /// Override this method to customize the build.
   /// 
-  /// Must call appSetup().
+  /// Must call appSetup()
   @override
   Widget build(BuildContext context) {
     return appSetup();
   }
 
   Widget appSetup() {
-    final List<NavigatorObserver> navigatorObserver = getNavigatorObservers();
-    if(getLocalization() != null) {
-      final LocalizationHelper localizationModel = getLocalization();
+    final AppConfig appConfig = appConfiguraton();
+    if(appConfig.localization != null) {
       final LocalizationService l10nService = AxCore.container.getInstance<ILocalizationService>();
-      l10nService.initialize(localizationModel.root, localizationModel.supportedLocales);
+      l10nService.initialize(appConfig.localization.root, appConfig.localization.supportedLocales);
       return FractionallySizedBox(
         widthFactor: 1, 
         heightFactor: 1, 
         child: Container(
-          color: getLoadingViewColor(),
+          color: appConfig.loadingViewColor,
           child: AxBindWidget<LocalizationService>(
             bindings: <Bind>[
               Bind(Constants.locate, l10nService, LocalizationService.localeProperty),
@@ -73,17 +45,18 @@ abstract class AxApp extends StatelessWidget {
             ],
             builder: (BuildContext context) { 
               return MaterialApp(
+                debugShowCheckedModeBanner: false,
                 navigatorKey: AxCore.container.getInstance<INavigationService>().navigator,
-                navigatorObservers: navigatorObserver ?? <NavigatorObserver>[],
+                navigatorObservers: appConfig.navigatorObservers,
                 locale: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
-                title: getTitle(),
-                theme: getTheme(),
-                darkTheme: getDarkTheme(),
+                title: appConfig.title,
+                theme: appConfig.theme,
+                darkTheme: appConfig.darkTheme,
                 home: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.localizationReady) 
-                  ? getInitialView(AxCore.container.getInstance<INavigationService>()) 
+                  ? initialView(AxCore.container.getInstance<INavigationService>()) 
                   : const SizedBox(),
-                onGenerateRoute: getRoutes,
-                supportedLocales: localizationModel.supportedLocales,
+                onGenerateRoute: routes,
+                supportedLocales: appConfig.localization.supportedLocales,
                 localizationsDelegates: <LocalizationsDelegate<dynamic>>[
                   l10nService,
                   GlobalMaterialLocalizations.delegate, 
@@ -100,26 +73,25 @@ abstract class AxApp extends StatelessWidget {
                       || supportedLocale.countryCode == locale?.countryCode)
                         return supportedLocale;
                   }
-                  return localizationModel.defaultLocale ??= supportedLocales.first;
+                  return appConfig.localization.defaultLocale ??= supportedLocales.first;
                 });
               })
             ));
     } else {
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: AxCore.container.getInstance<INavigationService>().navigator,
-        navigatorObservers: navigatorObserver ?? <NavigatorObserver>[],
-        title: getTitle(),
-        theme: getTheme(),
-        darkTheme: getDarkTheme(),
-        home: getInitialView(AxCore.container.getInstance<INavigationService>()),
-        onGenerateRoute: getRoutes
+        navigatorObservers: appConfig.navigatorObservers,
+        title: appConfig.title,
+        theme: appConfig.theme,
+        darkTheme: appConfig.darkTheme,
+        home: initialView(AxCore.container.getInstance<INavigationService>()),
+        onGenerateRoute: routes
       );
     }
   }
 
-  /// Creates a route.
-  ///
-  /// This method is usually called within [getRoutes]
+  /// Creates a route for a view.
   CupertinoPageRoute<R> buildRoute<R extends Object>(RouteSettings settings, Widget builder, [bool isModal = false]) {
     return CupertinoPageRoute<R>(
       settings: settings,

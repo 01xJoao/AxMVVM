@@ -1,33 +1,39 @@
-## [0.2.2] - NavigationService and DI
+## [0.2.3]
+
+* Change App Setup
+
+* TODO: 
+    - Unit tests;
+    - Create better example;
+
+## [0.2.2]
 
 * Now its possible to create lazySingletons.
 * Change how back button handle event works.
 * Added view events when app goes background and foregorund.
 * Update docs.
 
-* TODO: 
-    - Unit tests;
-    - Create better example;
+## [0.2.1]
 
-## [0.2.1] - Refactor closing viewmodel
+* Refactor closing viewModel
 
-## [0.2.0] - Fix navigation service v2
+## [0.2.0]
 
 * Fix async navigation.
 * Fix navigate back methods.
 
-## [0.1.3] - Fix navigation service
+## [0.1.3]
 
 * Fix createViewModelForBottomNavigation and createViewModelForInitialView methods
 
-## [0.1.2] - Refactor method
+## [0.1.2]
 
 * Refactor dependency registration method.
 
-## [0.1.1] - Update pubspec description.
+## [0.1.1]
 
 * Update package description. 
 
-## [0.1.0] - First AxMVVM release.
+## [0.1.0]
 
-* Affixal MVVM
+* First Affixal MVVM release.
