@@ -4,7 +4,7 @@ part of axmvvm.services;
 ///
 /// An implementation of this class is the basis to glabalizing the application.
 abstract class ILocalizationService extends LocalizationsDelegate<Location> {
-  /// Initialize the service by giving the root for the json l10n files
+  /// Initialize the service by giving the root for the json l10n files.
   void initialize(String root, List<Locale> supportedLocales);
 
   /// Set a different language of the system prefferred language.

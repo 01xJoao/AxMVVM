@@ -39,7 +39,7 @@ abstract class INavigationService {
   /// This should be used in conjunction with navigateAsyncForResult.
   Future<void> navigateBackWithResultAsync<T extends Object>(T parameter);
 
-  /// Will close all views and viewmodels async until it finds the viewmodel type   
+  /// Will close all views and viewmodels async until it finds the viewmodel type.
   Future<void> navigateBackUntilAsync<V extends ViewModel>();
 
   /// Navigates to a new viewmodel and removes the calling viewmodel from the stack.
@@ -49,7 +49,7 @@ abstract class INavigationService {
   /// The [animateToBackFirst] will navigate to the previous view before pushing the new one.
   Future<void> navigateAndRemoveCurrentAsync<V extends ViewModel>({Object parameter, bool animateToBackFirst});
 
-  /// Navigates to a new viewmodel and removes all viewmodels on the stack
+  /// Navigates to a new viewmodel and removes all viewmodels on the stack.
   /// 
   /// The [parameter] is a value that will be passed to the new viewmodel's init method.
   Future<void> navigateAndRemoveAllAsync<V extends ViewModel>({Object parameter});
@@ -61,7 +61,7 @@ abstract class INavigationService {
 
   /// Creates a viewmodel for the bottom navigation of a specified type.
   /// 
-  /// Viewmodel's methods initialize and initializeAsync are not called automatically
+  /// Viewmodel's methods initialize and initializeAsync are not called automatically.
   /// 
   /// To call initialize(null) method set the view as a bottomnavigationview. 
   ViewModel createViewModelForBottomNavigation<V extends ViewModel>();

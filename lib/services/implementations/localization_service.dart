@@ -13,7 +13,7 @@ class LocalizationService extends BindableBase implements ILocalizationService {
   bool get localization => getValue(localizationReadyProperty);
   set _localization(bool ready) => setValue(localizationReadyProperty, ready);
 
-  /// Initialize the service by giving the root for the json l10n files
+  /// Initialize the service by giving the root for the json l10n files.
   @override
   void initialize(String root, List<Locale> supportedLocales){
     try {
@@ -28,11 +28,11 @@ class LocalizationService extends BindableBase implements ILocalizationService {
   @override
   String currentLanguage() => _currentLocation?.locale?.languageCode;
 
-  /// Get a localized word with the given [key]
+  /// Get a localized word with the given [key].
   @override
   String localize(String key) => _currentLocation?.locate(key);
 
-  /// Loads the app location
+  /// Loads the app location.
   @override
   Future<Location> load(Locale locale) async {
     try {

@@ -3,16 +3,17 @@ part of axmvvm.bindings;
 /// State object to be used with binding for StatefulWidgets.
 ///
 /// This class must be exended whenever data binding is desired for a StatelfulWidget.
+/// 
 /// Intended to be used in conjenction with the AxStatefulWidget class.
 abstract class AxStateWidget<T extends StatefulWidget, B extends BindableBase>
     extends State<T> implements BindableModelHolder<B> {
 
   final B _bindableModel;
-  bool _widgetDidLoad = false;
   bool _isDeviceInPortrait;
   MediaQueryData _mediaQueryData;
   double _deviceWidth;
   double _deviceHeight;
+  bool _widgetDidLoad = false;
   
   @mustCallSuper
   AxStateWidget(this._bindableModel) {
@@ -22,7 +23,6 @@ abstract class AxStateWidget<T extends StatefulWidget, B extends BindableBase>
   }
   @override
   B get bindableModel => _bindableModel;
-  
   bool get isDeviceInPortrait => _isDeviceInPortrait;
   bool get isDeviceApple => Platform.isIOS || Platform.isMacOS;
   bool get isDeviceSmartPhone => SmartphoneDetector.isSmartPhone(_mediaQueryData);
@@ -42,7 +42,7 @@ abstract class AxStateWidget<T extends StatefulWidget, B extends BindableBase>
     _widgetDidLoad = true;
   } 
 
-  /// Creates viewDidLoad functionality
+  /// Creates viewDidLoad functionality.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

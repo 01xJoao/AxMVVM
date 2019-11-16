@@ -3,17 +3,18 @@ part of axmvvm.bindings;
 /// State object to be used with binding for StatefulViews.
 ///
 /// This class must be exended whenever data binding is desired for a StatelfulView.
+/// 
 /// Intended to be used in conjenction with the AxStatefulView class.
 abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
     extends State<T> with WidgetsBindingObserver implements ViewModelHolder<V> {
 
   final V _viewModel;
   final bool _isBottomNavigationView;
-  bool _viewDidLoad = false;
   bool _isDeviceInPortrait;
   MediaQueryData _mediaQueryData;
   double _deviceWidth;
   double _deviceHeight;
+  bool _viewDidLoad = false;
 
   @mustCallSuper
   AxStateView(this._viewModel, [this._isBottomNavigationView]) {
@@ -52,7 +53,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
 
   void viewDidDisappear(){}
 
-  /// Call this method on top of the widget tree to call viewmodel's close method when pressing back button
+  /// Call this method on top of the widget tree to call viewmodel's close method when pressing back button.
   /// 
   /// This will remove the swipe back gesture
   Widget handleBackButton({Widget view}){
@@ -83,7 +84,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
       viewDidLoad();
   }
 
-  /// Creates methods viewEnterBackground and viewEnterForeground
+  /// Creates methods viewEnterBackground and viewEnterForeground.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);

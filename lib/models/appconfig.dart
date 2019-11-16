@@ -15,6 +15,7 @@ class AppConfig {
   /// The dark theme to use for the app.
   ThemeData _darkTheme;
 
+  // App properties to help setting up the app.
   AppConfig(this._title, {LocalizationHelper localization, Color loadingViewColor, List<NavigatorObserver> navigatorObservers, ThemeData theme, ThemeData darkTheme}){
     _localization = localization;
     _loadingViewColor = loadingViewColor ?? Colors.white;

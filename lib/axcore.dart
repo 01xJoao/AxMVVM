@@ -1,6 +1,6 @@
 part of axmvvm;
 
-/// Main class for AxMVVM framework
+/// Main class for AxMVVM framework.
 class AxCore {
   static final AxContainer _container = AxContainer();
   

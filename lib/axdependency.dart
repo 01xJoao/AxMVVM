@@ -1,6 +1,6 @@
 part of 'axmvvm.dart';
 
-/// An object that contains information about resolving an dependency
+/// An object that contains information about resolving an dependency.
 class AxDependency {
   Type _typeRegistered;
   Lifestyle _registrationType;
