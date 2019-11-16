@@ -1,5 +1,5 @@
 # AxMVVM
-Affixal MVVM - Powerful and easy to use MVVM Architecture for Flutter
+Affixal MVVM - Clean and easy to use MVVM Architecture for Flutter
 
 - ViewModel base class.
 - ViewModel-First navigation.
