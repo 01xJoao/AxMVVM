@@ -1,10 +1,10 @@
 part of axmvvm;
 
 class AxContainer {
-  /// Container of dependency registrations.
+  /// Container of dependency objects.
   static final List<AxDependency> _dependencyContainer = <AxDependency>[];
 
-  /// Get the instance of a object previously registered in the container.
+  /// Get the instance of an object previously registered in the container.
   T getInstance<T>() {
     final Type targetType = Utilities.typeOf<T>();
   
@@ -39,7 +39,7 @@ class AxContainer {
 
   /// Registers a type that can be resolved.
   ///
-  /// The [factoryMethod] is a reference to a function that should create an instance of this type.
+  /// The [singletonCreationMethod] is a reference to a function that should create an instance of this type.
   void registerLazySingleton<T>(Function singletonCreationMethod){
     _checkDependencyRegistration<T>();
     _dependencyContainer.add(AxDependency(T, Lifestyle.lazySingletonRegistration, registerLazySingleton: singletonCreationMethod));

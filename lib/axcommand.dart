@@ -5,7 +5,7 @@ typedef ActionParam<Tparam> = void Function({Tparam parameter});
 
 /// Used by ViewModels and other BindableBase objects to execute a command/function.
 ///
-/// A command object should be returned by a property get statement.
+/// In must cases a command object should be returned by a property get statement.
 class AxCommand<T> {
   AxCommand({Action action, ActionParam<T> actionParam, Function canExecute}) {
     if(action != null)
@@ -13,7 +13,7 @@ class AxCommand<T> {
     else if(actionParam != null)
       _action = actionParam; 
     else
-      throw ArgumentError('function cannot be null');
+      throw ArgumentError('Function cannot be null');
 
     _canExecuteFunction = canExecute ?? () => true;
   }
