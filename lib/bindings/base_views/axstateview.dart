@@ -47,9 +47,17 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
     _viewDidLoad = true;
   }
 
-  void viewDidEnterForeground(){}
+  /// The application is visible and responding to user input.
+  @mustCallSuper
+  void viewDidEnterForeground(){
+    _viewModel.resumed();
+  }
 
-  void viewDidEnterBackground(){}
+  /// The application is not currently visible to the user, not responding to user input, and running in the background.
+  @mustCallSuper
+  void viewDidEnterBackground(){
+    _viewModel.paused();
+  }
 
   void viewDidDisappear(){}
 
