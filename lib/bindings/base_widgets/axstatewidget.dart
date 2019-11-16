@@ -9,10 +9,7 @@ abstract class AxStateWidget<T extends StatefulWidget, B extends BindableBase>
     extends State<T> implements BindableModelHolder<B> {
 
   final B _bindableModel;
-  bool _isDeviceInPortrait;
-  MediaQueryData _mediaQueryData;
-  double _deviceWidth;
-  double _deviceHeight;
+  LayoutInformation _layoutInformation;
   bool _widgetDidLoad = false;
   
   @mustCallSuper
@@ -23,22 +20,12 @@ abstract class AxStateWidget<T extends StatefulWidget, B extends BindableBase>
   }
   @override
   B get bindableModel => _bindableModel;
-  bool get isDeviceInPortrait => _isDeviceInPortrait;
-  bool get isDeviceApple => Platform.isIOS || Platform.isMacOS;
-  bool get isDeviceSmartPhone => SmartphoneDetector.isSmartPhone(_mediaQueryData);
-  String get deviceOS => Platform.operatingSystem;
-  double get deviceWidth => _deviceWidth;
-  double get deviceHeight => _deviceHeight;
-  MediaQueryData get deviceDataQuery => _mediaQueryData;
+  LayoutInformation get layoutInformation => _layoutInformation;
 
   /// This method is only called once when the view is built for the first time.
   /// 
   /// Context of the view is available.
   void widgetDidLoad(){
-    _mediaQueryData = MediaQuery.of(context);
-    _isDeviceInPortrait = _mediaQueryData.orientation == Orientation.portrait;
-    _deviceWidth = _mediaQueryData.size.width;
-    _deviceHeight = _mediaQueryData.size.height;
     _widgetDidLoad = true;
   } 
 
@@ -46,6 +33,7 @@ abstract class AxStateWidget<T extends StatefulWidget, B extends BindableBase>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _layoutInformation = LayoutInformation(context);
     if(!_widgetDidLoad)
       widgetDidLoad();
   }

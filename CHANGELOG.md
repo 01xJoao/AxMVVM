@@ -1,3 +1,7 @@
+## [0.3.1]
+
+* Add layout information to state views and widgets
+
 ## [0.3.0]
 
 * Add resumed() and paused() methods to base viewmodel.

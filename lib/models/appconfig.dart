@@ -1,5 +1,4 @@
-import 'package:axmvvm/models/models.dart';
-import 'package:flutter/material.dart';
+part of axmvvm.models;
 
 class AppConfig {
   /// Set the title of the app.

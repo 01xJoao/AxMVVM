@@ -10,10 +10,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
 
   final V _viewModel;
   final bool _isBottomNavigationView;
-  bool _isDeviceInPortrait;
-  MediaQueryData _mediaQueryData;
-  double _deviceWidth;
-  double _deviceHeight;
+  LayoutInformation _layoutInformation;
   bool _viewDidLoad = false;
 
   @mustCallSuper
@@ -25,24 +22,13 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
   /// The class's viewmodel reference.
   @override
   V get viewModel => _viewModel;
-  bool get isDeviceInPortrait => _isDeviceInPortrait;
-  bool get isDeviceApple => Platform.isIOS || Platform.isMacOS;
-  bool get isDeviceSmartPhone => SmartphoneDetector.isSmartPhone(_mediaQueryData);
-  String get deviceOS => Platform.operatingSystem;
-  double get deviceWidth => _deviceWidth;
-  double get deviceHeight => _deviceHeight;
-  MediaQueryData get deviceDataQuery => _mediaQueryData;
-
+  LayoutInformation get layoutInformation => _layoutInformation;
 
   /// This method is only called once when the view is built for the first time.
   /// 
   /// Context of the view is available.
   @mustCallSuper
   void viewDidLoad() {
-    _mediaQueryData = MediaQuery.of(context);
-    _isDeviceInPortrait = _mediaQueryData.orientation == Orientation.portrait;
-    _deviceWidth = _mediaQueryData.size.width;
-    _deviceHeight = _mediaQueryData.size.height;
     _viewModel.appeared();
     _viewDidLoad = true;
   }
@@ -88,6 +74,7 @@ abstract class AxStateView<T extends StatefulWidget, V extends ViewModel>
   @mustCallSuper
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _layoutInformation = LayoutInformation(context);
     if(!_viewDidLoad)
       viewDidLoad();
   }

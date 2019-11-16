@@ -3,7 +3,7 @@ library axmvvm;
 import 'dart:math';
 
 import 'package:axmvvm/bindings/bindings.dart';
-import 'package:axmvvm/models/appconfig.dart';
+import 'package:axmvvm/models/models.dart';
 import 'package:axmvvm/services/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

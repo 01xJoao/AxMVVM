@@ -1,4 +1,4 @@
-import 'package:axmvvm/models/appconfig.dart';
+import 'package:axmvvm/models/models.dart';
 import 'package:flutter/material.dart';
 
 import 'package:axmvvm/axmvvm.dart';
@@ -9,9 +9,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends AxApp {
   @override
-  AppConfig appConfiguraton() {
-    return AppConfig('AxMVVM');
-  }
+  AppConfig appConfiguraton() => AppConfig('AxMVVM');
 
   @override
   void registerDependencies(AxContainer container) {
