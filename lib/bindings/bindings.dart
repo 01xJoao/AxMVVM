@@ -1,8 +1,6 @@
 library axmvvm.bindings;
 
 import 'dart:collection';
-import 'dart:io' show Platform;
-import 'dart:io';
 
 import 'package:axmvvm/axmvvm.dart';
 import 'package:axmvvm/models/models.dart';
