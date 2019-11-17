@@ -1,11 +1,15 @@
-## [0.3.3]
+## [0.3.4]
 
-* Format documents.
-* Remove unused imports.
+* Update documentation.
 
 * TODO: 
     - Unit tests.
     - Create better example.
+
+## [0.3.3]
+
+* Format documents.
+* Remove unused imports.
 
 ## [0.3.2]
 
