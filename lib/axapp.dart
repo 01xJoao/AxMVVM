@@ -1,6 +1,6 @@
 part of axmvvm;
 
-/// Class to use for the main application in an axapp.
+/// Class to be inherited by the App starting class.
 abstract class AxApp extends StatelessWidget {
   @mustCallSuper
   AxApp() {
@@ -8,7 +8,7 @@ abstract class AxApp extends StatelessWidget {
     registerDependencies(AxCore.container);
   }
 
-  /// Setup the basic app properties.
+  /// Setup the basic app configuration properties.
   AppConfig appConfiguraton();
 
   /// Called by the constructor to register any dependency to be resolved.
@@ -17,18 +17,25 @@ abstract class AxApp extends StatelessWidget {
   /// Set the initial view.
   Widget initialView(INavigationService navigationService);
 
-  /// Returns a list of routes for the application.
-  Route<dynamic> routes(RouteSettings settings);
+  /// Create and manage the routes to be used by the navigation service.
+  Route<dynamic> routePlanner(RouteSettings settings);
+
+  /// Creates a route for the view.
+  CupertinoPageRoute<R> createRoute<R extends Object>(RouteSettings settings, Widget builder, [bool isModal = false]) {
+    return CupertinoPageRoute<R>(
+      settings: settings,
+      fullscreenDialog: isModal,
+      builder: (BuildContext context) => builder
+    );
+  }
 
   /// Override this method to customize the build.
   /// 
-  /// Must call appSetup()
+  /// Must call [initializeApp()].
   @override
-  Widget build(BuildContext context) {
-    return appSetup();
-  }
+  Widget build(BuildContext context) => initializeApp();
 
-  Widget appSetup() {
+  Widget initializeApp() {
     final AppConfig appConfig = appConfiguraton();
     if(appConfig.localization != null) {
       final LocalizationService l10nService = AxCore.container.getInstance<ILocalizationService>();
@@ -55,7 +62,7 @@ abstract class AxApp extends StatelessWidget {
                 home: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.localizationReady) 
                   ? initialView(AxCore.container.getInstance<INavigationService>()) 
                   : const SizedBox(),
-                onGenerateRoute: routes,
+                onGenerateRoute: routePlanner,
                 supportedLocales: appConfig.localization.supportedLocales,
                 localizationsDelegates: <LocalizationsDelegate<dynamic>>[
                   l10nService,
@@ -86,17 +93,8 @@ abstract class AxApp extends StatelessWidget {
         theme: appConfig.theme,
         darkTheme: appConfig.darkTheme,
         home: initialView(AxCore.container.getInstance<INavigationService>()),
-        onGenerateRoute: routes
+        onGenerateRoute: routePlanner
       );
     }
-  }
-
-  /// Creates a route for a view.
-  CupertinoPageRoute<R> buildRoute<R extends Object>(RouteSettings settings, Widget builder, [bool isModal = false]) {
-    return CupertinoPageRoute<R>(
-      settings: settings,
-      fullscreenDialog: isModal,
-      builder: (BuildContext context) => builder
-    );
   }
 }

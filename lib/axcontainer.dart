@@ -58,6 +58,7 @@ class AxContainer {
     _dependencyContainer.clear();
   }
 
+  /// Check if the dependency has already been registered.
   void _checkDependencyRegistration<T>() {
     if(_dependencyContainer.any((AxDependency dr) => identical(dr.typeRegistered, Utilities.typeOf<T>())))
       throw StateError('The same type cannot be registered twice.');

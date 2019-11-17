@@ -3,7 +3,7 @@ part of axmvvm;
 typedef Action = void Function();
 typedef ActionParam<Tparam> = void Function({Tparam parameter});
 
-/// Used by ViewModels and other BindableBase objects to execute a command/function.
+/// Used by ViewModels and other BindableBase objects to execute a command (function).
 ///
 /// In must cases a command object should be returned by a property get statement.
 class AxCommand<T> {

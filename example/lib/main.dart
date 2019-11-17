@@ -24,8 +24,8 @@ class MyApp extends AxApp {
   }
 
   @override
-  Route<dynamic> routes(RouteSettings settings) {
-    return buildRoute(settings, TestView(settings.arguments));
+  Route<dynamic> routePlanner(RouteSettings settings) {
+    return createRoute(settings, TestView(settings.arguments));
   }
 }
 

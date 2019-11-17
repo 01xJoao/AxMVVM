@@ -1,3 +1,12 @@
+## [0.3.2]
+
+* Change some AxAPP method names.
+* Update documenttion.
+
+* TODO: 
+    - Unit tests.
+    - Create better example.
+
 ## [0.3.1]
 
 * Add layout information to state views and widgets
@@ -6,10 +15,6 @@
 
 * Add resumed() and paused() methods to base viewmodel.
 * Update documentation.
-
-* TODO: 
-    - Unit tests.
-    - Create better example.
 
 ## [0.2.3]
 

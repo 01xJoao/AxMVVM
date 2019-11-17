@@ -4,7 +4,7 @@ class Utilities {
   /// Returns a type object for a generic.
   static Type typeOf<T>() => T;
 
-  /// Returns a string view name based on a viewmodel type.
+  /// Returns the view name based on a viewmodel type.
   static String getViewFromViewModelType<T extends ViewModel>() {
     final String typeName = Utilities.typeOf<T>().toString();
     return typeName.replaceAll('ViewModel', 'View');
@@ -29,15 +29,14 @@ abstract class IValueConverter {
   Object convertBack(Object source, Object value, {Object parameter});
 }
 
-/// Used to tell if a Binding object's original value was ever set.
+/// Used to tell if a Binding object's original value has ever been set.
 class OriginalValueNeverSet {}
 
-/// What type of instance should be created.
+/// What type of instance should be stored.
 enum Lifestyle { transientRegistration, singletonRegistration, lazySingletonRegistration }
 
 /// What type of binding to create.
 enum BindDirection { OneTime, TwoWay }
-
 
 class SmartphoneDetector {
   static bool isSmartPhone(MediaQueryData query) {

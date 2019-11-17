@@ -1,6 +1,6 @@
 part of axmvvm;
 
-/// Main class for AxMVVM framework.
+/// Core class that instanciates the IoC container and registers basic services.
 class AxCore {
   static final AxContainer _container = AxContainer();
   
