@@ -2,7 +2,7 @@ part of axmvvm.services;
 
 /// Localization service to be used by viewmodels.
 class LocalizationService extends BindableBase implements ILocalizationService {
-  String _pathToJson;
+  String _path;
   Location _currentLocation;
   List<Locale> _supportedLocales;
 
@@ -16,10 +16,10 @@ class LocalizationService extends BindableBase implements ILocalizationService {
 
   /// Initialize the service with the path to the directory where the json translation files are located.
   /// 
-  /// Also set all the supported languages by the app.
+  /// Also it sets all the supported languages by the app.
   @override
-  void initialize(String pathToJson, List<Locale> supportedLocales){
-    _pathToJson = pathToJson;
+  void initialize(String path, List<Locale> supportedLocales){
+    _path = path;
     _supportedLocales = supportedLocales;
   } 
 
@@ -51,7 +51,7 @@ class LocalizationService extends BindableBase implements ILocalizationService {
   Future<Location> load(Locale locale) async {
     try {
       _currentLocation = Location(locale);
-      await _currentLocation.loadLocalizedValues(_pathToJson);
+      await _currentLocation.loadLocalizedValues(_path);
       return _currentLocation;
     } catch (e) {
       throw ArgumentError(e.toString());

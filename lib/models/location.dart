@@ -1,6 +1,6 @@
 part of axmvvm.models;
 
-/// Helper class for translation.
+/// Helper class for locating the json files and taking care of the translation.
 class Location {
   final Locale locale;
   Map<String, String> _localizedValues;

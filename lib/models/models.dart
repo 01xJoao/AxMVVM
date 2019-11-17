@@ -13,5 +13,5 @@ part 'subscription.dart';
 part 'messenger.dart';
 part 'location.dart';
 part 'localization.dart';
-part 'appconfig.dart';
+part 'appconfiguration.dart';
 part 'layout_information.dart';

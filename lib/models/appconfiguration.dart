@@ -1,21 +1,19 @@
 part of axmvvm.models;
 
-class AppConfig {
-  /// Set the title of the app.
+class AppConfiguration {
   final String _title;
-  /// Set the localizations of the  app.
   LocalizationHelper _localization;
-  /// Set the color of the loading view (Used when Localization Service is loading).
   Color _loadingViewColor;
-  /// Set the navigation observers of the app 
   List<NavigatorObserver> _navigatorObservers;
-  /// The theme to use for the app.
   ThemeData _theme;
-  /// The dark theme to use for the app.
   ThemeData _darkTheme;
 
-  // App properties to help setting up the app.
-  AppConfig(this._title, {LocalizationHelper localization, Color loadingViewColor, List<NavigatorObserver> navigatorObservers, ThemeData theme, ThemeData darkTheme}){
+  /// App properties to help setting up the app.
+  /// 
+  /// Set the [title], all supported [localization], the [loadingViewColor] (Used when Localization Service is loading).
+  /// 
+  /// Also add navigation observers (For example, to be used on a dialog service), and set the themes for the application.
+  AppConfiguration(this._title, {LocalizationHelper localization, Color loadingViewColor, List<NavigatorObserver> navigatorObservers, ThemeData theme, ThemeData darkTheme}){
     _localization = localization;
     _loadingViewColor = loadingViewColor ?? Colors.white;
     _navigatorObservers = navigatorObservers ?? <NavigatorObserver>[];

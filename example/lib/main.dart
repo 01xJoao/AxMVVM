@@ -9,7 +9,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends AxApp {
   @override
-  AppConfig appConfiguraton() => AppConfig('AxMVVM');
+  AppConfiguration appConfiguraton() => AppConfiguration('AxMVVM');
 
   @override
   void registerDependencies(AxContainer container) {

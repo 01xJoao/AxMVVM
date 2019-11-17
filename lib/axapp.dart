@@ -9,7 +9,7 @@ abstract class AxApp extends StatelessWidget {
   }
 
   /// Setup the basic app configuration properties.
-  AppConfig appConfiguraton();
+  AppConfiguration appConfiguraton();
 
   /// Called by the constructor to register any dependency to be resolved.
   void registerDependencies(AxContainer container);
@@ -36,10 +36,10 @@ abstract class AxApp extends StatelessWidget {
   Widget build(BuildContext context) => initializeApp();
 
   Widget initializeApp() {
-    final AppConfig appConfig = appConfiguraton();
+    final AppConfiguration appConfig = appConfiguraton();
     if(appConfig.localization != null) {
       final LocalizationService l10nService = AxCore.container.getInstance<ILocalizationService>();
-      l10nService.initialize(appConfig.localization.root, appConfig.localization.supportedLocales);
+      l10nService.initialize(appConfig.localization.pathToJson, appConfig.localization.supportedLocales);
       return FractionallySizedBox(
         widthFactor: 1, 
         heightFactor: 1, 
