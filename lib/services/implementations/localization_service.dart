@@ -1,7 +1,8 @@
 part of axmvvm.services;
 
+/// Localization service to be used by viewmodels.
 class LocalizationService extends BindableBase implements ILocalizationService {
-  String _root;
+  String _pathToJson;
   Location _currentLocation;
   List<Locale> _supportedLocales;
 
@@ -13,40 +14,24 @@ class LocalizationService extends BindableBase implements ILocalizationService {
   bool get localization => getValue(localizationReadyProperty);
   set _localization(bool ready) => setValue(localizationReadyProperty, ready);
 
-  /// Initialize the service by giving the root for the json l10n files.
+  /// Initialize the service with the path to the directory where the json translation files are located.
+  /// 
+  /// Also set all the supported languages by the app.
   @override
-  void initialize(String root, List<Locale> supportedLocales){
-    try {
-      _supportedLocales = supportedLocales;
-      _root = root;
-    } catch (e) {
-      throw ArgumentError(e.toString());
-    }
+  void initialize(String pathToJson, List<Locale> supportedLocales){
+    _pathToJson = pathToJson;
+    _supportedLocales = supportedLocales;
   } 
 
-  /// Get the current language used by the application.
+  /// Get the current language used by the app.
   @override
-  String currentLanguage() => _currentLocation?.locale?.languageCode;
+  String getCurrentLanguage() => _currentLocation?.locale?.languageCode;
 
-  /// Get a localized word with the given [key].
+  /// Get the localized word with a given [key].
   @override
   String localize(String key) => _currentLocation?.locate(key);
 
-  /// Loads the app location.
-  @override
-  Future<Location> load(Locale locale) async {
-    try {
-      _currentLocation = Location(locale);
-      await _currentLocation.loadLocalizedValues(_root);
-      return _currentLocation;
-    } catch (e) {
-      throw ArgumentError(e.toString());
-    } finally {
-      _localization = true;
-    }
-  }
-
-  /// Set a different language of the system prefferred language.
+  /// Get the localized word with a given [key].
   @override
   void setLanguage(String language) {
     try {
@@ -58,6 +43,20 @@ class LocalizationService extends BindableBase implements ILocalizationService {
       }
     } catch (e) {
       throw ArgumentError(e.toString());
+    }
+  }
+
+  /// Loads the app location.
+  @override
+  Future<Location> load(Locale locale) async {
+    try {
+      _currentLocation = Location(locale);
+      await _currentLocation.loadLocalizedValues(_pathToJson);
+      return _currentLocation;
+    } catch (e) {
+      throw ArgumentError(e.toString());
+    } finally {
+      _localization = true;
     }
   }
 

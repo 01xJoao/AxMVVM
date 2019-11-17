@@ -53,7 +53,7 @@ abstract class AxApp extends StatelessWidget {
             builder: (BuildContext context) { 
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                navigatorKey: AxCore.container.getInstance<INavigationService>().navigator,
+                navigatorKey: AxCore.container.getInstance<INavigationService>().navigatorKey,
                 navigatorObservers: appConfig.navigatorObservers,
                 locale: AxBindWidget.ofType<LocalizationService>(context).getValue(Constants.locate),
                 title: appConfig.title,
@@ -87,7 +87,7 @@ abstract class AxApp extends StatelessWidget {
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        navigatorKey: AxCore.container.getInstance<INavigationService>().navigator,
+        navigatorKey: AxCore.container.getInstance<INavigationService>().navigatorKey,
         navigatorObservers: appConfig.navigatorObservers,
         title: appConfig.title,
         theme: appConfig.theme,

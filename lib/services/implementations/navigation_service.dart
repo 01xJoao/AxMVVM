@@ -1,17 +1,17 @@
 part of axmvvm.services;
 
-/// Implementation of the axmvvm NavigationService interface.
+/// Implementation of the Navigation Service.
 class NavigationService implements INavigationService {
-  final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   final List<ViewModel> _viewModelRepository = <ViewModel>[];
 
   /// Global key for the app navigation.
   @override
-  GlobalKey<NavigatorState> get navigator => _navigator;
-
-  /// This method is usefule for creating a viewmodel to pass to the application starting view.
+  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+  
+  /// This method is useful to create a viewmodel for the application starting view.
   /// 
-  /// Viewmodel's method initializeAsync are not called automatically.
+  /// Viewmodel's method [initializeAsync()] is not called.
   @override
   ViewModel createViewModelForInitialView<V extends ViewModel>({Object parameter}) {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
@@ -22,9 +22,9 @@ class NavigationService implements INavigationService {
 
   /// Creates a viewmodel for the bottom navigation of a specified type.
   /// 
-  /// Viewmodel's methods initialize and initializeAsync are not called automatically.
+  /// Viewmodel's initialize methods are not called.
   /// 
-  /// To call initialize(null) method set the view as a bottomnavigationview. 
+  /// To call [initialize()] method set the view as a bottomNavigationView. 
   @override
   ViewModel createViewModelForBottomNavigation<V extends ViewModel>() {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
@@ -32,46 +32,46 @@ class NavigationService implements INavigationService {
     return _viewModelRepository.last;
   }
 
-  /// Navigates to a new viewmodel of the type specified by the generic.
+  /// Navigates to a new viewmodel of the specified type.
   ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// The [parameter] is a value that will be passed to the new viewmodel's initialize methods.
   @override
   Future<void> navigate<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
       
-    _navigator.currentState.pushNamed(
+    _navigatorKey.currentState.pushNamed(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 
-  /// Navigates to a new viewmodel of the type specified by the generic.
+  /// Navigates to a new viewmodel of the specified type.
   ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// The [parameter] is a value that will be passed to the new viewmodel's initialize methods.
   /// 
-  /// Awaits for the new view to close.
+  /// Awaits for the called viewmodel to close.
   @override
   Future<void> navigateAsync<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
       
-    await _navigator.currentState.pushNamed(
+    await _navigatorKey.currentState.pushNamed(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 
-  /// Navigates to a new viewmodel of the type specified by the generic.
+  /// Navigates to a new viewmodel of the specified type.
   ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method. 
+  /// The [parameter] is a value that will be passed to the new viewmodel's initialize methods. 
   /// 
   /// It is expected that the viewmodel being navigated to will return an object when it is popped off.
   @override
   Future<T> navigateForResultAsync<T extends Object, V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
 
-    return await _navigator.currentState.pushNamed<dynamic>(
+    return await _navigatorKey.currentState.pushNamed<dynamic>(
       Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
   }
 
   /// Navigates to a new viewmodel and removes the calling viewmodel from the stack.
   ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// The [parameter] is a value that will be passed to the new viewmodel's initialize methods.
   /// 
   /// The [animateToBackFirst] will navigate to the previous view before pushing the new one.
   @override
@@ -79,10 +79,10 @@ class NavigationService implements INavigationService {
     await _createViewModel<V>(parameter);
       
     if(animateToBackFirst){
-      _navigator.currentState.popAndPushNamed(
+      _navigatorKey.currentState.popAndPushNamed(
         Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
     } else {
-      _navigator.currentState.pushReplacementNamed(
+      _navigatorKey.currentState.pushReplacementNamed(
         Utilities.getViewFromViewModelType<V>(), arguments: _viewModelRepository.last);
     }
 
@@ -91,12 +91,12 @@ class NavigationService implements INavigationService {
 
   /// Navigates to a new viewmodel and removes all viewmodels on the stack
   /// 
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// The [parameter] is a value that will be passed to the new viewmodel's initialize methods.
   @override
   Future<void> navigateAndRemoveAllAsync<V extends ViewModel>({Object parameter}) async {
     await _createViewModel<V>(parameter);
 
-    _navigator.currentState.pushNamedAndRemoveUntil(
+    _navigatorKey.currentState.pushNamedAndRemoveUntil(
       Utilities.getViewFromViewModelType<V>(), 
       (Route<dynamic> route) => false, 
       arguments: _viewModelRepository.last
@@ -105,29 +105,46 @@ class NavigationService implements INavigationService {
     _clearViewModelStack(_viewModelRepository.last);
   }
 
-  /// Pops the current view / viewmodel off the stack and goes to the previous one.
+  /// Pops the current viewmodel off the stack and goes to the previous one.
   @override
   Future<void> navigateBackAsync() async {
-    if(_navigator.currentState.canPop()){
-      _navigator.currentState.pop();
+    if(_navigatorKey.currentState.canPop()){
+      _navigatorKey.currentState.pop();
       await navigatingBack();
     }
   }
 
-  /// Pops the current view / viewmodel off the stack and goes to the previous one.
+  /// Pops the current viewmodel off the stack and goes to the previous one.
   ///
   /// The [paramter] is the result to send back to the calling viewmodel.
   /// 
   /// This should be used in conjunction with navigateAsyncForResult.
   @override
   Future<void> navigateBackWithResultAsync<T extends Object>(T parameter) async {
-    if(_navigator.currentState.canPop()){
-        _navigator.currentState.pop(parameter);
+    if(_navigatorKey.currentState.canPop()){
+        _navigatorKey.currentState.pop(parameter);
         await navigatingBack();
       }
   }
 
-  /// Navigation logic method, don't use this.
+  /// Will close all viewmodels async until it finds the viewmodel of a specified type.
+  @override
+  Future<void> navigateBackUntilAsync<V extends ViewModel>() async {
+    if(_viewModelRepository.any((ViewModel v) => v.runtimeType == V)){
+      final int viewModelIndex = _viewModelRepository.indexWhere((ViewModel v) => v.runtimeType == V);
+      
+      for(int i = _viewModelRepository.length-1; i > viewModelIndex; i--){
+        _navigatorKey.currentState.pop();
+
+        _viewModelRepository.last.closing();
+        await _viewModelRepository.last.closingAsync();
+
+        _viewModelRepository.removeAt(i).dispose();
+      }
+    }
+  }
+
+  /// Navigation method to be used internally, DON'T use this.
   @override
   Future<void> navigatingBack({ViewModel closedViewModel}) async {
     if(closedViewModel != null && closedViewModel != _viewModelRepository.last)
@@ -138,26 +155,9 @@ class NavigationService implements INavigationService {
     _viewModelRepository.removeLast().dispose();
   }
 
-  /// Will close all views and viewmodels async until it finds the viewmodel type 
-  @override
-  Future<void> navigateBackUntilAsync<V extends ViewModel>() async {
-    if(_viewModelRepository.any((ViewModel v) => v.runtimeType == V)){
-      final int index = _viewModelRepository.indexWhere((ViewModel v) => v.runtimeType == V);
-      
-      for(int i = _viewModelRepository.length-1; i > index; i--){
-        _navigator.currentState.pop();
-
-        _viewModelRepository.last.closing();
-        await _viewModelRepository.last.closingAsync();
-
-        _viewModelRepository.removeAt(i).dispose();
-      }
-    }
-  }
-
   /// Creates a viewmodel of a specified type.
   ///
-  /// The [parameter] is a value that will be passed to the new viewmodel's init method.
+  /// The [parameter] is a value that will be passed to the new viewmodel's initialize methods.
   Future<void> _createViewModel<V extends ViewModel>(Object parameter) async {
     final ViewModel viewModel = AxCore.container.getInstance<V>();
     viewModel.initialize(parameter);
@@ -165,12 +165,12 @@ class NavigationService implements INavigationService {
     _viewModelRepository.add(viewModel);
   }
 
-  /// Clears all view models in the stack except the current viewmodel
-  void _clearViewModelStack(ViewModel exceptVM) {
+  /// Clears all viewmodels in the stack except the current viewmodel.
+  void _clearViewModelStack(ViewModel exceptViewModel) {
     for(int i = 0; i < _viewModelRepository.length-1; i++)
       _viewModelRepository[i].dispose();
 
     _viewModelRepository.clear();
-    _viewModelRepository.add(exceptVM);
+    _viewModelRepository.add(exceptViewModel);
   }
 }

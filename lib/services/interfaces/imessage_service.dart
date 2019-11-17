@@ -1,8 +1,8 @@
 part of axmvvm.services;
 
-/// Supports the publish/subscribe pattern.
+/// Supports the publish/subscribe design pattern.
 ///
-/// The [MessengeService] allows for loose coupling between objects where anything in the system can
+/// The Messenge Service allows for loose coupling between objects where anything in the system can
 /// send information of interest without being aware of what other parts of the system may use that information.
 abstract class IMessageService {
   /// Adds a subscription to receive notifications when events occur.
@@ -18,6 +18,6 @@ abstract class IMessageService {
   /// If there are no subscripbers to the messange name, this method will do nothing.
   void publish(Message message);
 
-  /// Removes all existing subscriptions.
+  /// Clears all existing subscriptions.
   void clearAllSubscriptions();
 }

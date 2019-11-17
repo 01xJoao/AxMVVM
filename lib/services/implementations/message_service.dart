@@ -1,8 +1,8 @@
 part of axmvvm.services;
 
-/// Supports the publish/subscribe pattern.
+/// Supports the publish/subscribe design pattern.
 ///
-/// The [MessengeService] allows for loose coupling between objects where anything in the system can
+/// The Messenge Service allows for loose coupling between objects where anything in the system can
 /// send information of interest without being aware of what other parts of the system may use that information.
 class MessageService implements IMessageService {
   final List<Subscription> _subscriptions = <Subscription>[];
@@ -54,7 +54,7 @@ class MessageService implements IMessageService {
     }
   }
 
-  /// Removes all existing subscriptions.
+  /// Clears all existing subscriptions.
   @override
   void clearAllSubscriptions() {
     _messengers.forEach((Messenger m) => m.close());

@@ -3,17 +3,12 @@ part of axmvvm.models;
 /// Helper class for translation.
 class Location {
   final Locale locale;
+  Map<String, String> _localizedValues;
 
   Location(this.locale);
 
-  static Location of(BuildContext context) {
-    return Localizations.of<Location>(context, Location);
-  }
-
-  Map<String, String> _localizedValues;
-
-  Future<void> loadLocalizedValues(String root) async {
-    final String data = await rootBundle.loadString('$root${locale.languageCode}.json');
+  Future<void> loadLocalizedValues(String path) async {
+    final String data = await rootBundle.loadString('$path${locale.languageCode}.json');
     final dynamic jsonString = json.decode(data);
     _localizedValues = <String, String>{};
 
